@@ -8,8 +8,8 @@ import java.util.UUID;
 public class GoalAlreadyExistsException extends Exception{
 
 
-  public GoalAlreadyExistsException (UUID goalUID) {
-    super("Goal: " + goalUID.toString() + " already Exists");
+  public GoalAlreadyExistsException (String goalUID) {
+    super("Goal: " + goalUID + " already Exists");
   };
 
 

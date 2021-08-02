@@ -10,8 +10,8 @@ public class UserDoesNotExists extends Exception{
   //
   // Constructors
   //
-  public UserDoesNotExists (UUID userUUID) {
-    super("User " + userUUID.toString() + " does not exist" );
+  public UserDoesNotExists (String userUUID) {
+    super("User " + userUUID + " does not exist" );
 
   };
   

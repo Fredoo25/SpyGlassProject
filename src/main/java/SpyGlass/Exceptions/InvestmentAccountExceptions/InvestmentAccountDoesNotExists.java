@@ -8,7 +8,7 @@ import java.util.UUID;
 public class InvestmentAccountDoesNotExists extends Exception {
 
 
-  public InvestmentAccountDoesNotExists (UUID investmentUID) {
+  public InvestmentAccountDoesNotExists (String investmentUID) {
     super("Investment Account: " + investmentUID + " does not exits");
   };
   

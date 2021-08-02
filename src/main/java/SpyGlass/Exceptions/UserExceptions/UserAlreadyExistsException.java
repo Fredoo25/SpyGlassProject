@@ -10,8 +10,8 @@ import java.util.UUID;
 public class UserAlreadyExistsException extends Exception{
   // Constructors
   //
-  public UserAlreadyExistsException (UUID userUID) {
-    super("User: " + userUID.toString() + " already Exists");
+  public UserAlreadyExistsException (String userUID) {
+    super("User: " + userUID + " already Exists");
   };
   
 
