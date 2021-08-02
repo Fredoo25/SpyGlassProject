@@ -3,23 +3,56 @@ package SpyGlass.Services;
 import SpyGlass.Models.Goal;
 import SpyGlass.Models.InvestmentAccount;
 import SpyGlass.Models.User;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.FirestoreClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class StorageService {
 
-  //
-  // Fields
-  //
+  private static final String PATH_TO_SERVICE_ACCOUNT_FILE = "src/main/resources/service-account.json";
+  private static final String USER_COLLECTION = "Users";
+  private static final String GOAL_COLLECTION = "Goals";
+  private static final String INVESTMENT_COLLECTION = "Investments";
 
-  
-  //
-  // Constructors
-  //
-  public StorageService () { };
+  private final Logger logger = LoggerFactory.getLogger(StorageService.class);
+  private Firestore db = null;
+
+  public StorageService () {
+    try{
+      //Load the service account file from filesystem.
+      InputStream serviceAccount = new FileInputStream(PATH_TO_SERVICE_ACCOUNT_FILE);
+      //Build credential object from the file.
+      GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+      //Create a firebase object with the proper credentials.
+      FirebaseOptions firebaseOptions = FirebaseOptions.builder().setCredentials(credentials).build();
+      //Initialize the Firebase Connection with the passed options(credentials).
+      FirebaseApp.initializeApp(firebaseOptions);
+      //Get the firestore db from the Firestore Connection.
+      this.db = FirestoreClient.getFirestore();
+      logger.info("Storage Service initialized successfully!");
+    } catch (FileNotFoundException e) {
+        //If the service account file could not be loaded, print error message, exit application)
+        logger.error("Service Account File could not be found, terminating application!!!");
+        System.exit(1);
+    } catch (IOException e) {
+      //If the service account file could not be opened, print error message, exit application)
+      logger.error("Error opening the the service account file, terminating application!!!");
+        System.exit(1);
+    }
+  };
   
   /**
    * @return       Boolean
@@ -27,6 +60,8 @@ public class StorageService {
    */
   public Boolean addUser(User newUser)
   {
+    logger.info("Saving user into db");
+    db.collection(USER_COLLECTION).document(newUser.getUid().toString())
   }
 
 
