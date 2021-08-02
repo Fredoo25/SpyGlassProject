@@ -83,16 +83,16 @@ public class Goal {
    * Set the value of uid
    * @param newVar the new value of uid
    */
-  public void setUid (UUID newVar) {
-    uid = newVar;
+  public void setUid (String newVar) {
+    uid = UUID.fromString(newVar);
   }
 
   /**
    * Get the value of uid
    * @return the value of uid
    */
-  public UUID getUid () {
-    return uid;
+  public String getUid () {
+    return uid.toString();
   }
 
   /**
@@ -247,32 +247,32 @@ public class Goal {
    * Set the value of investmentAccountUID
    * @param newVar the new value of investmentAccountUID
    */
-  public void setInvestmentAccountUID (UUID newVar) {
-    investmentAccountUID = newVar;
+  public void setInvestmentAccountUID (String newVar) {
+    investmentAccountUID = UUID.fromString(newVar);
   }
 
   /**
    * Get the value of investmentAccountUID
    * @return the value of investmentAccountUID
    */
-  public UUID getInvestmentAccountUID () {
-    return investmentAccountUID;
+  public String getInvestmentAccountUID () {
+    return investmentAccountUID.toString();
   }
 
   /**
    * Set the value of userUID
    * @param newVar the new value of userUID
    */
-  public void setUserUID (UUID newVar) {
-    userUID = newVar;
+  public void setUserUID (String newVar) {
+    userUID = UUID.fromString(newVar);
   }
 
   /**
    * Get the value of userUID
    * @return the value of userUID
    */
-  public UUID getUserUID () {
-    return userUID;
+  public String getUserUID () {
+    return userUID.toString();
   }
 
   private void computeAmountPerInterval() {

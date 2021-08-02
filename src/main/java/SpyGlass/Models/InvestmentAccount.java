@@ -49,12 +49,12 @@ public class InvestmentAccount {
   //
 
 
-  public UUID getUid() {
-    return uid;
+  public String getUid() {
+    return uid.toString();
   }
 
-  public void setUid(UUID uid) {
-    this.uid = uid;
+  public void setUid(String uid) {
+    this.uid = UUID.fromString(uid);
   }
 
   /**
@@ -125,32 +125,32 @@ public class InvestmentAccount {
    * Set the value of goalUID
    * @param newVar the new value of goalUID
    */
-  public void setGoalUID (UUID newVar) {
-    goalUID = newVar;
+  public void setGoalUID (String newVar) {
+    goalUID = UUID.fromString(newVar);
   }
 
   /**
    * Get the value of goalUID
    * @return the value of goalUID
    */
-  public UUID getGoalUID () {
-    return goalUID;
+  public String getGoalUID () {
+    return goalUID.toString();
   }
 
   /**
    * Set the value of userUID
    * @param newVar the new value of userUID
    */
-  public void setUserUID (UUID newVar) {
-    userUID = newVar;
+  public void setUserUID (String newVar) {
+    userUID = UUID.fromString(newVar);
   }
 
   /**
    * Get the value of userUID
    * @return the value of userUID
    */
-  public UUID getUserUID () {
-    return userUID;
+  public String getUserUID () {
+    return userUID.toString();
   }
 
   //
@@ -188,8 +188,8 @@ public class InvestmentAccount {
             ", incrementInterval=" + incrementInterval +
             ", currentTotal=" + currentTotal +
             ", projectedTotal=" + projectedTotal +
-            ", goalUID=" + goalUID +
-            ", userUID=" + userUID +
+            ", goalUID=" + getGoalUID() +
+            ", userUID=" + getUserUID() +
             '}';
   }
 }

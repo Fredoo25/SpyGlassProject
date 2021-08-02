@@ -45,8 +45,8 @@ public class User {
    * User Uinique Identifier
    * @param newVar the new value of uid
    */
-  public void setUid (UUID newVar) {
-    uid = newVar;
+  public void setUid (String newVar) {
+    uid = UUID.fromString(newVar);
   }
 
   /**
@@ -54,8 +54,8 @@ public class User {
    * User Uinique Identifier
    * @return the value of uid
    */
-  public UUID getUid () {
-    return uid;
+  public String getUid () {
+    return uid.toString();
   }
 
   /**

@@ -23,6 +23,9 @@ import java.util.UUID;
 public class StorageService {
 
   private static final String PATH_TO_SERVICE_ACCOUNT_FILE = "src/main/resources/service-account.json";
+  private static final String USER_COLLECTION = "Users";
+  private static final String GOAL_COLLECTION = "Goals";
+  private static final String INVESTMENT_COLLECTION = "Investments";
 
   private final Logger logger = LoggerFactory.getLogger(StorageService.class);
   private Firestore db = null;
@@ -57,6 +60,8 @@ public class StorageService {
    */
   public Boolean addUser(User newUser)
   {
+    logger.info("Saving user into db");
+    db.collection(USER_COLLECTION).document(newUser.getUid().toString())
   }
 
 
