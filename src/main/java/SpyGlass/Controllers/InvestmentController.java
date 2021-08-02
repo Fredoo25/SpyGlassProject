@@ -3,6 +3,7 @@ package SpyGlass.Controllers;
 import SpyGlass.Models.InvestmentAccount;
 import SpyGlass.Services.InvestmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +39,7 @@ public class InvestmentController {
    */
   public ResponseEntity<Boolean> addInvestment(UUID userUID, InvestmentAccount newInvestment)
   {
+    return new ResponseEntity<>(investmentService.addInvestment(newInvestment, userUID), HttpStatus.CREATED);
   }
 
 
@@ -47,6 +49,7 @@ public class InvestmentController {
    */
   public ResponseEntity<List<InvestmentAccount>> getInvestments(UUID userUID)
   {
+    return new ResponseEntity<>(investmentService.getInvestmentAccounts(userUID), HttpStatus.OK);
   }
 
 

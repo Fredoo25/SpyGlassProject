@@ -86,9 +86,9 @@ public class GoalService {
 
 
   /**
-   * @param        uiserUID
+   * @param        userUID
    */
-  public List<Goal> getGoals(UUID uiserUID)
+  public List<Goal> getGoals(UUID userUID)
   {
   }
 

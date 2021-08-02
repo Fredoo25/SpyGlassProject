@@ -4,6 +4,7 @@ import SpyGlass.Models.InvestmentAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -58,7 +59,7 @@ public class InvestmentService {
   /**
    * @param        userUID
    */
-  public void getInvestmentAccounts(UUID userUID)
+  public List<InvestmentAccount> getInvestmentAccounts(UUID userUID)
   {
   }
 
