@@ -23,6 +23,7 @@ public class UserService {
   //
   @Autowired
   public UserService (StorageService storageService) {
+
     this.storageService = storageService;
   };
   
@@ -40,6 +41,7 @@ public class UserService {
    * @param newVar the new value of storageService
    */
   public void setStorageService (StorageService newVar) {
+
     storageService = newVar;
   }
 
@@ -48,6 +50,7 @@ public class UserService {
    * @return the value of storageService
    */
   public StorageService getStorageService () {
+
     return storageService;
   }
 
@@ -59,8 +62,9 @@ public class UserService {
    * @return       Boolean
    * @param        newUser
    */
-  public Boolean addUser(User newUser)
-  {
+  public Boolean addUser(User newUser) {
+
+    storage;
   }
 
 
@@ -70,6 +74,7 @@ public class UserService {
    */
   public Boolean updateUser(User updatedUser)
   {
+    return null;
   }
 
 

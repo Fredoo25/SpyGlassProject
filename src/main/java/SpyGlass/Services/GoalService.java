@@ -79,8 +79,7 @@ public class GoalService {
    * @param        userUID
    * @param        newGoal
    */
-  public boolean addNewGoal(UUID userUID, Goal newGoal)
-  {
+  public boolean addNewGoal(UUID userUID, Goal newGoal) {
   }
 
 
