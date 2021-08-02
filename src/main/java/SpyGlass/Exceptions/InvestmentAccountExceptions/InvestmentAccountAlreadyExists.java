@@ -8,7 +8,7 @@ import java.util.UUID;
 public class InvestmentAccountAlreadyExists extends Exception{
 
 
-  public InvestmentAccountAlreadyExists (UUID investmentUID) {
+  public InvestmentAccountAlreadyExists (String investmentUID) {
     super("Investment Account: " + investmentUID.toString() + " already exists");
 
   };

@@ -7,7 +7,7 @@ import java.util.UUID;
  */
 public class GoalDoesNotExistException  extends Exception{
 
-  public GoalDoesNotExistException (UUID goalUID) {
+  public GoalDoesNotExistException (String goalUID) {
     super("Goal: " + goalUID + " does not exist");
   };
 
