@@ -4,6 +4,7 @@ import SpyGlass.Models.Goal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -87,7 +88,7 @@ public class GoalService {
   /**
    * @param        uiserUID
    */
-  public void getGoals(UUID uiserUID)
+  public List<Goal> getGoals(UUID uiserUID)
   {
   }
 
