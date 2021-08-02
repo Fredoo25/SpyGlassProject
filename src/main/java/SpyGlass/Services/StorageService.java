@@ -304,12 +304,12 @@ public class StorageService {
     }
 
     /**
-     *
-     * @param investmentUID
-     * @return
-     * @throws ExecutionException
-     * @throws InterruptedException
-     * @throws InvestmentAccountDoesNotExists
+     * Function will attempt to get Investment Account matching the provided investment account uid.
+     * @param investmentUID: Investment account uid to search for.
+     * @return Investment Account if found, otherwise exceptions are thrown.
+     * @throws ExecutionException Thrown when the Connection to Database Fails.
+     * @throws InterruptedException Thrown when no goals matching criteria are found.
+     * @throws InvestmentAccountDoesNotExists Thrown when no Investment Account was found with the provided UID.
      */
     public InvestmentAccount getInvestment(String investmentUID) throws ExecutionException, InterruptedException, InvestmentAccountDoesNotExists {
         logger.info("Attempting to get Investment Account with UID: " + investmentUID);
