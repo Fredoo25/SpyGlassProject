@@ -15,8 +15,10 @@ public class Goal {
 
   private UUID uid;
   private double amount;
+  private double current;
   private String name;
   private String description;
+  private String imageURL;
   private LocalDate startDate;
   private LocalDate projectedEndDate;
   private boolean isInvested;
@@ -34,11 +36,15 @@ public class Goal {
     this.startDate = LocalDate.now();
   };
 
-  public Goal(String name, String description, LocalDate projectedEndDate, boolean isInvested, IncrementFrequency savingInterval, UUID investmentAccountUID, UUID userUID, double amount) {
+  public Goal(String name, String description, LocalDate projectedEndDate, boolean isInvested,
+              IncrementFrequency savingInterval, UUID investmentAccountUID, UUID userUID, double amount,
+              String imageURL, double current) {
     this();
     this.amount = amount;
+    this.current = current;
     this.name = name;
     this.description = description;
+    this.imageURL = imageURL;
     this.projectedEndDate = projectedEndDate;
     this.isInvested = isInvested;
     this.savingInterval = savingInterval;
@@ -55,6 +61,23 @@ public class Goal {
   //
   // Accessor methods
   //
+
+
+  public double getCurrent() {
+    return current;
+  }
+
+  public void setCurrent(double current) {
+    this.current = current;
+  }
+
+  public String getImageURL() {
+    return imageURL;
+  }
+
+  public void setImageURL(String imageURL) {
+    this.imageURL = imageURL;
+  }
 
   /**
    * Set the value of uid

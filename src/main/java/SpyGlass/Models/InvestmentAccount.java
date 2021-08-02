@@ -2,6 +2,7 @@ package SpyGlass.Models;
 
 import org.apache.tomcat.util.bcel.Const;
 
+import java.rmi.server.UID;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -19,12 +20,25 @@ public class InvestmentAccount {
   private double projectedTotal;
   private UUID goalUID;
   private UUID userUID;
+  private UUID uid;
   
   //
   // Constructors
   //
-  public InvestmentAccount () { };
-  
+  public InvestmentAccount () {
+    this.uid = UUID.randomUUID();
+  };
+
+  public InvestmentAccount(double percentageYield, IncrementFrequency incrementInterval, double currentTotal, double projectedTotal, UUID goalUID, UUID userUID) {
+    this();
+    this.percentageYield = percentageYield;
+    this.incrementInterval = incrementInterval;
+    this.currentTotal = currentTotal;
+    this.projectedTotal = projectedTotal;
+    this.goalUID = goalUID;
+    this.userUID = userUID;
+  }
+
   //
   // Methods
   //
@@ -33,6 +47,15 @@ public class InvestmentAccount {
   //
   // Accessor methods
   //
+
+
+  public UUID getUid() {
+    return uid;
+  }
+
+  public void setUid(UUID uid) {
+    this.uid = uid;
+  }
 
   /**
    * Set the value of percentageYield
