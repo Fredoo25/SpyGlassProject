@@ -1,5 +1,7 @@
 package SpyGlass.Services;
 
+import SpyGlass.Exceptions.UserExceptions.UserAlreadyExistsException;
+import SpyGlass.Exceptions.UserExceptions.UserDoesNotExists;
 import SpyGlass.Models.Goal;
 import SpyGlass.Models.InvestmentAccount;
 import SpyGlass.Models.User;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class StorageService {
@@ -53,33 +56,81 @@ public class StorageService {
         System.exit(1);
     }
   };
-  
+
   /**
-   * @return       Boolean
-   * @param        newUser
+   * Function will add a new user to the persistent database.
+   * @param newUser User to be added.
+   * @return Boolean True if the user was successfully added to the database.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when the connection to database is interrupted.
+   * @throws UserAlreadyExistsException Thrown when attempting to add a user which already exists.
    */
-  public Boolean addUser(User newUser)
-  {
+  public Boolean addUser(User newUser) throws ExecutionException, InterruptedException, UserAlreadyExistsException {
     logger.info("Saving user into db");
-    db.collection(USER_COLLECTION).document(newUser.getUid().toString())
+    //Get document reference for the user's uid.
+    var userDocument = db.collection(USER_COLLECTION).document(newUser.getUid());
+    //Check if the document exists.
+    if(userDocument.get().get().exists()) {
+      //If it does, then the user already exists, throw exception
+      throw new UserAlreadyExistsException(newUser.getUid());
+    } else {
+      //Otherwise add the new user.
+      userDocument.set(newUser);
+      //Return True for success.
+      return true;
+    }
   }
 
 
   /**
-   * @return       Boolean
-   * @param        userToUpdate
+   * Function attempts to update an existing user in the Database.
+   * @param userToUpdate: User to be updated, contains updated field.
+   * @return Boolean True when the operation succeeds, exceptions are thrown otherwise.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when the connection to database is interrupted.
+   * @throws UserDoesNotExists Thrown when attempting to update a user which does not exist on the database.
    */
-  public Boolean updateUser(User userToUpdate)
-  {
+  public Boolean updateUser(User userToUpdate) throws ExecutionException, InterruptedException, UserDoesNotExists {
+    logger.info("Updating User: " + userToUpdate.getUid());
+    //Get document reference for passed user's UID
+    var userDocument = db.collection(USER_COLLECTION).document(userToUpdate.getUid());
+    //Get the document from DB and check if the document exists.
+    if(!userDocument.get().get().exists()) {
+      //if document does not exist, we are attempting to update a user which does not exist, throw exception.
+      logger.info("User " + userToUpdate.getUid() + " does not exist");
+      throw new UserDoesNotExists(userToUpdate.getUid());
+    } else {
+      //If document exists, then update the document with the new user data.
+      userDocument.set(userToUpdate);
+      //Return true for success.
+      return true;
+    }
   }
 
 
   /**
-   * @return       Boolean
-   * @param        userUID
+   * Function attempts to remove a  user from the database.
+   * @param userUID: UID of user to be removed.
+   * @return Boolean True when operation is successful, exceptions are thrown otherwise.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when the connection to database is interrupted.
+   * @throws UserDoesNotExists Thrown when attempting to delete a user which does not exist on the database.
    */
-  public Boolean deleteUser(UUID userUID)
-  {
+  public Boolean deleteUser(String userUID) throws ExecutionException, InterruptedException, UserDoesNotExists {
+    logger.info("Deleting User: " + userUID);
+    //Get reference to user document using their UID
+    var userDocument = db.collection(USER_COLLECTION).document(userUID);
+    //Get the object from the database and check if the document exists.
+    if(!userDocument.get().get().exists()) {
+      //If the document does not exists, then we are attempting to remove a user which does not exist, throw exception.
+      logger.info("User " + userUID + " does not exist");
+      throw new UserDoesNotExists(userUID);
+    } else {
+      //Otherwise, user does exist, issue delete command to remove the user document.
+      userDocument.delete().get();
+      //Return true for success.
+      return true;
+    }
   }
 
 
