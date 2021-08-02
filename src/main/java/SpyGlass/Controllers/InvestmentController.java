@@ -59,6 +59,7 @@ public class InvestmentController {
    */
   public ResponseEntity<InvestmentAccount> getInvestment(UUID investmentUID)
   {
+    return new ResponseEntity<>(investmentService.getInvestment(investmentUID), HttpStatus.OK);
   }
 
 

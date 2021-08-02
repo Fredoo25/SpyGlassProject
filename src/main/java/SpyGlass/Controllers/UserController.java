@@ -3,6 +3,7 @@ package SpyGlass.Controllers;
 import SpyGlass.Models.User;
 import SpyGlass.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,7 @@ public class UserController {
    */
   public ResponseEntity<Boolean> newUser(User newUser)
   {
+    return new ResponseEntity<>(userService.addUser(newUser), HttpStatus.CREATED);
   }
 
 
@@ -49,6 +51,7 @@ public class UserController {
    */
   public ResponseEntity<Boolean> updateUser(User updatedUser)
   {
+    return new ResponseEntity<>(userService.updateUser(updatedUser), HttpStatus.CREATED);
   }
 
 
@@ -58,6 +61,7 @@ public class UserController {
    */
   public ResponseEntity<Boolean> deleteUser(UUID userToDelete)
   {
+    return new ResponseEntity<>(userService.deleteUser(userToDelete), HttpStatus.OK);
   }
 
 

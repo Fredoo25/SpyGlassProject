@@ -68,7 +68,7 @@ public class InvestmentService {
    * @param        newInvestment
    * @param        userUID
    */
-  public void addInvestment(InvestmentAccount newInvestment, UUID userUID)
+  public Boolean addInvestment(InvestmentAccount newInvestment, UUID userUID)
   {
   }
 
