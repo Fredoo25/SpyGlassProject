@@ -37,7 +37,7 @@ public class Goal {
   };
 
   public Goal(String name, String description, LocalDate projectedEndDate, boolean isInvested,
-              IncrementFrequency savingInterval, UUID investmentAccountUID, UUID userUID, double amount,
+              IncrementFrequency savingInterval, String investmentAccountUID, String userUID, double amount,
               String imageURL, double current) {
     this();
     this.amount = amount;
@@ -48,8 +48,8 @@ public class Goal {
     this.projectedEndDate = projectedEndDate;
     this.isInvested = isInvested;
     this.savingInterval = savingInterval;
-    this.investmentAccountUID = investmentAccountUID;
-    this.userUID = userUID;
+    this.investmentAccountUID = UUID.fromString(investmentAccountUID);
+    this.userUID = UUID.fromString(userUID);
     computeAmountPerInterval();
   }
 
@@ -327,7 +327,7 @@ public class Goal {
   @Override
   public String toString() {
     return "Goal{" +
-            "uid=" + uid +
+            "uid=" + uid.toString() +
             ", name='" + name + '\'' +
             ", description='" + description + '\'' +
             ", startDate=" + startDate +
@@ -336,8 +336,8 @@ public class Goal {
             ", amountPerInterval=" + amountPerInterval +
             ", savingInterval=" + savingInterval +
             ", onTrack=" + onTrack +
-            ", investmentAccountUID=" + investmentAccountUID +
-            ", userUID=" + userUID +
+            ", investmentAccountUID=" + investmentAccountUID.toString() +
+            ", userUID=" + userUID.toString() +
             '}';
   }
 }
