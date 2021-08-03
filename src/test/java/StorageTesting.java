@@ -10,7 +10,9 @@ import SpyGlass.Models.IncrementFrequency;
 import SpyGlass.Models.InvestmentAccount;
 import SpyGlass.Models.User;
 import SpyGlass.Services.StorageService;
+import org.junit.Assert;
 import org.junit.Rule;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 
@@ -26,88 +28,99 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 public class StorageTesting {
 
     StorageService storageService = new StorageService();
+    final Goal testGoal = new Goal();
+    final User testUser = new User();
 
     @Test
-    public void addUserTest() throws UserAlreadyExistsException, ExecutionException, InterruptedException {
-        User user = new User();
-        Boolean actual = storageService.addUser(user);
-        assertThat(actual).isEqualTo(true);
+    synchronized public void doAllTests() {
+        final User testUser = new User();
+
+        try{
+            addUserTest(testUser);
+            updateUserTest(testUser);
+            deleteUserTest(testUser);
+            Assertions.assertTrue(true);
+        }catch (Exception ex) {
+            Assertions.fail();
+        }
+    }
+
+    synchronized public void addUserTest(User testUser) {
+        try {
+            Boolean actual = storageService.addUser(testUser);
+            assertThat(actual).isEqualTo(true);
+        }catch(Exception ex) {
+            Assertions.fail();
+        }
+
+    }
+
+
+    synchronized public void updateUserTest(User testUser) {
+        try {
+            List<String> goals = new ArrayList<>();
+            goals.add(UUID.randomUUID().toString());
+            testUser.setGoals(goals);
+            Boolean actual = storageService.updateUser(testUser);
+            Assertions.assertTrue(true);
+        }catch(Exception ex) {
+            Assertions.fail();
+        }
 
     }
 
     @Test
-    public void updateUserTest() throws UserDoesNotExists, ExecutionException, InterruptedException, UserAlreadyExistsException {
-        User user = new User();
-        storageService.addUser(user);
-        List<UUID> goals = new ArrayList<>();
-        UUID id = new UUID(8, 88);
-        goals.add(id);
-        user.setGoals(goals);
-        Boolean actual = storageService.updateUser(user);
-        assertThat(actual).isEqualTo(true);
-
-    }
-
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
-
-    @Test
-    public void deleteUserTest() throws ExecutionException, InterruptedException, UserAlreadyExistsException, UserDoesNotExists {
-        exceptionRule.expect(UserDoesNotExists.class);
-        User user = new User();
-        storageService.addUser(user);
-        storageService.deleteUser(user.getUid());
-        storageService.getUser(user.getUid());
+    synchronized public void deleteUserTest(User testUser) throws ExecutionException, InterruptedException, UserAlreadyExistsException, UserDoesNotExists {
+        storageService.deleteUser(testUser.getUid());
+        try {
+            storageService.getUser(testUser.getUid());
+        }catch(UserDoesNotExists ex) {
+            Assertions.assertTrue(true);
+        }
 
     }
 
     @Test
     public void addGoalTest() throws GoalAlreadyExistsException, ExecutionException, InterruptedException {
-        Goal goal = new Goal();
-        Boolean actual = storageService.addNewGoal(goal);
+        testGoal.setUserUID(testUser.getUid());
+        Boolean actual = storageService.addNewGoal(testGoal);
         assertThat(actual).isEqualTo(true);
 
     }
 
     @Test
     public void getGoalTest() throws GoalAlreadyExistsException, ExecutionException, InterruptedException, GoalDoesNotExistException {
-        Goal goal = new Goal();
-        storageService.addNewGoal(goal);
-        Goal Actual = storageService.getGoal(goal.getUid());
-        Goal Expected = goal;
-        assertThat(Actual).isEqualTo(Expected);
+        Goal Actual = storageService.getGoal(testGoal.getUid());
+        assertThat(Actual).isEqualTo(testGoal);
     }
 
     @Test
     public void updateGoalTest() throws ExecutionException, InterruptedException, GoalDoesNotExistException, GoalAlreadyExistsException {
-        Goal goal = new Goal();
-        storageService.addNewGoal(goal);
-        goal.setName("test");
-        Boolean actual = storageService.updateGoal(goal.getUid(), goal);
+        testGoal.setName("test");
+        Boolean actual = storageService.updateGoal(testGoal.getUid(), testGoal);
         assertThat(actual).isEqualTo(true);
 
     }
 
     @Test
     public void deleteGoalTest() throws ExecutionException, InterruptedException, GoalAlreadyExistsException, GoalDoesNotExistException {
-        exceptionRule.expect(GoalDoesNotExistException.class);
-        Goal goal = new Goal();
-        storageService.addNewGoal(goal);
-        storageService.deleteGoal(goal.getUid());
-        storageService.getGoal(goal.getUid());
+        storageService.deleteGoal(testGoal.getUid());
+        storageService.getGoal(testGoal.getUid());
 
     }
 
     @Test
     public void getGoalsTest() throws GoalAlreadyExistsException, ExecutionException, InterruptedException, NoGoalsFoundException {
-        User user = new User();
         Goal goal = new Goal();
         Goal goal2 = new Goal();
         Goal goal3 = new Goal();
+        goal.setUserUID(testUser.getUid());
+        goal2.setUserUID(testUser.getUid());
+        goal3.setUserUID(testUser.getUid());
         storageService.addNewGoal(goal);
         storageService.addNewGoal(goal2);
         storageService.addNewGoal(goal3);
-        List<Goal> Actual = storageService.getGoals(user.getUid());
+        List<Goal> Actual = storageService.getGoals(testUser.getUid());
         List<Goal> Expected = new ArrayList<>();
         Expected.add(goal);
         Expected.add(goal2);
@@ -120,6 +133,7 @@ public class StorageTesting {
     @Test
     public void addInvestmentTest() throws ExecutionException, InterruptedException, InvestmentAccountAlreadyExists {
         InvestmentAccount investmentAccount = new InvestmentAccount();
+        investmentAccount.setUserUID(testUser.getUid());
         //InvestmentAccount investmentAccount = new InvestmentAccount(0.05, IncrementFrequency.Daily, 5.0, 100.0, );
         Boolean actual = storageService.addInvestmentAccount(investmentAccount);
         assertThat(actual).isEqualTo(true);
@@ -131,20 +145,21 @@ public class StorageTesting {
         InvestmentAccount investmentAccount = new InvestmentAccount();
         storageService.addInvestmentAccount(investmentAccount);
         InvestmentAccount Actual = storageService.getInvestment(investmentAccount.getUid());
-        InvestmentAccount Expected = investmentAccount;
-        assertThat(Actual).isEqualTo(Expected);
+        assertThat(Actual).isEqualTo(investmentAccount);
     }
 
     @Test
     public void getInvestmentsTest() throws ExecutionException, InterruptedException, NoGoalsFoundException, InvestmentAccountAlreadyExists {
-        User user = new User();
         InvestmentAccount investmentAccount = new InvestmentAccount();
         InvestmentAccount investmentAccount2 = new InvestmentAccount();
         InvestmentAccount investmentAccount3 = new InvestmentAccount();
+        investmentAccount.setUserUID(testUser.getUid());
+        investmentAccount2.setUserUID(testUser.getUid());
+        investmentAccount3.setUserUID(testUser.getUid());
         storageService.addInvestmentAccount(investmentAccount);
         storageService.addInvestmentAccount(investmentAccount2);
         storageService.addInvestmentAccount(investmentAccount3);
-        List<InvestmentAccount> Actual = storageService.getInvestmentAccounts(user.getUid());
+        List<InvestmentAccount> Actual = storageService.getInvestmentAccounts(testUser.getUid());
         List<InvestmentAccount> Expected = new ArrayList<>();
         Expected.add(investmentAccount);
         Expected.add(investmentAccount2);
