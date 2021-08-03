@@ -34,6 +34,8 @@ public class User {
 
     public User() {
         this.uid = UUID.randomUUID();
+        this.goals = new ArrayList<>();
+        this.investmentAccounts = new ArrayList<>();
     }
 
     public User(String uid, List<UUID> goals, List<UUID> investmentAccounts) {
