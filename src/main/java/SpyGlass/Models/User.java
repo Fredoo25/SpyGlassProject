@@ -1,5 +1,6 @@
 package SpyGlass.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -29,9 +30,24 @@ public class User {
   //
   // Constructors
   //
-  public User () { };
-  
-  //
+
+    public User() {
+        this.uid = UUID.randomUUID();
+    }
+
+    public User(String uid, List<UUID> goals, List<UUID> investmentAccounts) {
+        this.uid = UUID.fromString(uid);
+        this.goals = goals;
+        this.investmentAccounts = investmentAccounts;
+    }
+
+    public User(List<UUID> goals, List<UUID> investmentAccounts) {
+        this();
+        this.goals = goals;
+        this.investmentAccounts = investmentAccounts;
+    }
+
+    //
   // Methods
   //
 
