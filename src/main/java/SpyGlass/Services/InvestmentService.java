@@ -97,9 +97,9 @@ public class InvestmentService {
    * @throws ExecutionException Thrown when the Connection to Database Fails.
    * @throws InterruptedException Thrown when no goals are found.
    */
-  public String getInvestment(String investmentUID) throws InvestmentAccountDoesNotExists, ExecutionException, InterruptedException {
-    storageService.getInvestment(investmentUID);
-    return investmentUID;
+  public InvestmentAccount getInvestment(String investmentUID) throws InvestmentAccountDoesNotExists, ExecutionException, InterruptedException {
+    return storageService.getInvestment(investmentUID);
+
   }
 
 
