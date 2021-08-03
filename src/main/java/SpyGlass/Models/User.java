@@ -1,8 +1,10 @@
 package SpyGlass.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Class User
@@ -29,9 +31,24 @@ public class User {
   //
   // Constructors
   //
-  public User () { };
-  
-  //
+
+    public User() {
+        this.uid = UUID.randomUUID();
+    }
+
+    public User(String uid, List<UUID> goals, List<UUID> investmentAccounts) {
+        this.uid = UUID.fromString(uid);
+        this.goals = goals;
+        this.investmentAccounts = investmentAccounts;
+    }
+
+    public User(List<UUID> goals, List<UUID> investmentAccounts) {
+        this();
+        this.goals = goals;
+        this.investmentAccounts = investmentAccounts;
+    }
+
+    //
   // Methods
   //
 
@@ -72,8 +89,8 @@ public class User {
    * List of UID For Goals.
    * @return the value of goals
    */
-  public List<UUID> getGoals () {
-    return goals;
+  public List<String> getGoals () {
+    return goals.stream().map(UUID::toString).collect(Collectors.toList());
   }
 
   /**
@@ -90,8 +107,8 @@ public class User {
    * List of Investment Accounts.
    * @return the value of investmentAccounts
    */
-  public List<UUID> getInvestmentAccounts () {
-    return investmentAccounts;
+  public List<String> getInvestmentAccounts () {
+    return investmentAccounts.stream().map(UUID::toString).collect(Collectors.toList());
   }
 
   //

@@ -37,7 +37,7 @@ public class Goal {
   };
 
   public Goal(String name, String description, LocalDate projectedEndDate, boolean isInvested,
-              IncrementFrequency savingInterval, UUID investmentAccountUID, UUID userUID, double amount,
+              IncrementFrequency savingInterval, String investmentAccountUID, String userUID, double amount,
               String imageURL, double current) {
     this();
     this.amount = amount;
@@ -48,9 +48,28 @@ public class Goal {
     this.projectedEndDate = projectedEndDate;
     this.isInvested = isInvested;
     this.savingInterval = savingInterval;
-    this.investmentAccountUID = investmentAccountUID;
-    this.userUID = userUID;
+    this.investmentAccountUID = UUID.fromString(investmentAccountUID);
+    this.userUID = UUID.fromString(userUID);
     computeAmountPerInterval();
+  }
+
+  public Goal(String uid, double amount, double current, String name, String description, String imageURL,
+              LocalDate startDate, LocalDate projectedEndDate, boolean isInvested, double amountPerInterval,
+              IncrementFrequency savingInterval, boolean onTrack, String investmentAccountUID, String userUID) {
+    this.uid = UUID.fromString(uid);
+    this.amount = amount;
+    this.current = current;
+    this.name = name;
+    this.description = description;
+    this.imageURL = imageURL;
+    this.startDate = startDate;
+    this.projectedEndDate = projectedEndDate;
+    this.isInvested = isInvested;
+    this.amountPerInterval = amountPerInterval;
+    this.savingInterval = savingInterval;
+    this.onTrack = onTrack;
+    this.investmentAccountUID = UUID.fromString(investmentAccountUID);
+    this.userUID = UUID.fromString(userUID);
   }
 
   //
@@ -308,7 +327,7 @@ public class Goal {
   @Override
   public String toString() {
     return "Goal{" +
-            "uid=" + uid +
+            "uid=" + uid.toString() +
             ", name='" + name + '\'' +
             ", description='" + description + '\'' +
             ", startDate=" + startDate +
@@ -317,8 +336,8 @@ public class Goal {
             ", amountPerInterval=" + amountPerInterval +
             ", savingInterval=" + savingInterval +
             ", onTrack=" + onTrack +
-            ", investmentAccountUID=" + investmentAccountUID +
-            ", userUID=" + userUID +
+            ", investmentAccountUID=" + investmentAccountUID.toString() +
+            ", userUID=" + userUID.toString() +
             '}';
   }
 }
