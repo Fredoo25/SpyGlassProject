@@ -43,9 +43,10 @@ public class GoalController {
    * @return       ResponseEntity<List<Goal>>
    * @param        userUID
    */
+  //  GET request that retrieves according goals list to specified user
   @GetMapping("/{userUID}")
-  public ResponseEntity<List<Goal>> getGoals(@PathVariable String userUID) throws NoGoalsFoundException, ExecutionException, InterruptedException {
-    return new ResponseEntity<>(goalService.getGoals(userUID), HttpStatus.OK);
+  public List<Goal> getGoals(@PathVariable String userUID) throws NoGoalsFoundException, ExecutionException, InterruptedException {
+    return goalService.getGoals(userUID);
   }
 
 
@@ -54,9 +55,10 @@ public class GoalController {
    * @param        userUID
    * @param        newGoal
    */
+  //  Adds new goal to specified user's list of goals
   @PostMapping("/{userUID}")
-  public ResponseEntity<Boolean> addNewGoal(@PathVariable String userUID, @RequestBody Goal newGoal) throws GoalAlreadyExistsException, ExecutionException, InterruptedException {
-    return new ResponseEntity<>(goalService.addNewGoal(userUID, newGoal), HttpStatus.CREATED);
+  public Boolean addNewGoal(@PathVariable String userUID, @RequestBody Goal newGoal) throws GoalAlreadyExistsException, ExecutionException, InterruptedException {
+    return goalService.addNewGoal(userUID, newGoal);
   }
 
 
@@ -65,9 +67,10 @@ public class GoalController {
    * @param        goalUID
    * @param        newGoal
    */
+  //  Retrieves specified goal and updates specified goal's information
 @PutMapping("/{goalUID}")
-  public ResponseEntity<Boolean> updateGoal(@PathVariable String goalUID, @RequestBody Goal newGoal) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
-    return new ResponseEntity<>(goalService.updateGoal(goalUID, newGoal), HttpStatus.CREATED);
+  public Boolean updateGoal(@PathVariable String goalUID, @RequestBody Goal newGoal) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
+    return goalService.updateGoal(goalUID, newGoal);
   }
 
 
@@ -75,9 +78,10 @@ public class GoalController {
    * @return       ResponseEntity<Boolean>
    * @param        goalUID
    */
+  //  Removes the specified goal from user's goal list
   @DeleteMapping("/{goalUID}")
-  public ResponseEntity<Boolean> deleteGoal(@PathVariable String goalUID) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
-    return new ResponseEntity<>( goalService.deleteGoal(goalUID), HttpStatus.OK);
+  public Boolean deleteGoal(@PathVariable String goalUID) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
+    return goalService.deleteGoal(goalUID);
   }
 
 
