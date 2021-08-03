@@ -22,7 +22,7 @@ public class InvestmentService {
   //
 
   private StorageService storageService;
-  
+
   //
   // Constructors
   //
