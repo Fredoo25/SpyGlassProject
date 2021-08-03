@@ -77,6 +77,7 @@ public class InvestmentService {
   public boolean addInvestment(InvestmentAccount newInvestment, UUID userUID) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
     storageService.addInvestmentAccount(newInvestment);
     return true;
+
   }
 
 
