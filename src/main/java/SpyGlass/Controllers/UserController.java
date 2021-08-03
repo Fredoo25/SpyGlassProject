@@ -1,13 +1,16 @@
 package SpyGlass.Controllers;
 
+import SpyGlass.Exceptions.UserExceptions.UserAlreadyExistsException;
+import SpyGlass.Exceptions.UserExceptions.UserDoesNotExists;
 import SpyGlass.Models.User;
 import SpyGlass.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Class UserController
@@ -38,8 +41,9 @@ public class UserController {
    * @return       ResponseEntity<Boolean>
    * @param        newUser
    */
-  public ResponseEntity<Boolean> newUser(User newUser)
-  {
+  @PostMapping
+  public ResponseEntity<Boolean> newUser(@RequestBody User newUser) throws UserAlreadyExistsException, ExecutionException, InterruptedException {
+    return new ResponseEntity<>(userService.addUser(newUser), HttpStatus.CREATED);
   }
 
 
@@ -47,17 +51,19 @@ public class UserController {
    * @return       ResponseEntity<Boolean>
    * @param        updatedUser
    */
-  public ResponseEntity<Boolean> updateUser(User updatedUser)
-  {
+  @PutMapping
+  public ResponseEntity<Boolean> updateUser(@RequestBody User updatedUser) throws UserDoesNotExists, ExecutionException, InterruptedException {
+    return new ResponseEntity<>(userService.updateUser(updatedUser), HttpStatus.CREATED);
   }
 
 
   /**
    * @return       ResponseEntity<Boolean>
-   * @param        userToDelete
+   * @param        userUID
    */
-  public ResponseEntity<Boolean> deleteUser(UUID userToDelete)
-  {
+  @DeleteMapping("/{userUID}")
+  public ResponseEntity<Boolean> deleteUser(String userUID) throws UserDoesNotExists, ExecutionException, InterruptedException {
+    return new ResponseEntity<>(userService.deleteUser(userUID), HttpStatus.OK);
   }
 
 

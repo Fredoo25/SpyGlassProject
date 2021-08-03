@@ -1,10 +1,14 @@
 package SpyGlass.Services;
 
+import SpyGlass.Exceptions.InvestmentAccountExceptions.InvestmentAccountAlreadyExists;
+import SpyGlass.Exceptions.InvestmentAccountExceptions.InvestmentAccountDoesNotExists;
 import SpyGlass.Models.InvestmentAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Class InvestmentService
@@ -57,18 +61,23 @@ public class InvestmentService {
 
   /**
    * @param        userUID
+   * @return
    */
-  public void getInvestmentAccounts(UUID userUID)
-  {
+  public ArrayList<Object> getInvestmentAccounts(String userUID) throws ExecutionException, InterruptedException {
+    storageService.getInvestmentAccounts(userUID);
+    return new ArrayList<>();
   }
 
 
   /**
    * @param        newInvestment
    * @param        userUID
+   * @return
    */
-  public void addInvestment(InvestmentAccount newInvestment, UUID userUID)
-  {
+  public boolean addInvestment(InvestmentAccount newInvestment, UUID userUID) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
+    storageService.addInvestmentAccount(newInvestment);
+    return true;
+
   }
 
 
@@ -76,8 +85,9 @@ public class InvestmentService {
    * @return       InvestmentAccount
    * @param        investmentUID
    */
-  public InvestmentAccount getInvestment(UUID investmentUID)
-  {
+  public String getInvestment(String investmentUID) throws InvestmentAccountDoesNotExists, ExecutionException, InterruptedException {
+    storageService.getInvestment(investmentUID);
+    return investmentUID;
   }
 
 
