@@ -326,5 +326,22 @@ public class StorageService {
         }
     }
 
+    /**
+     * Function to retrieve a user from the database.
+     * @param userUID: User to be retrieved from database.
+     * @return User object if successful.
+     * @throws ExecutionException Thrown when the Connection to Database Fails.
+     * @throws InterruptedException Thrown when no goals matching criteria are found.
+     * @throws UserDoesNotExists Thrown when the user could not be located on the database
+     */
+    public User getUser(String userUID) throws ExecutionException, InterruptedException, UserDoesNotExists {
+        logger.info("Getting user with UID: " + userUID);
+
+        var userDocument = db.collection(USER_COLLECTION).document(userUID).get().get();
+        if(userDocument.exists()) {
+            return userDocument.toObject(User.class);
+        } else throw new UserDoesNotExists(userUID);
+    }
+
 
 }
