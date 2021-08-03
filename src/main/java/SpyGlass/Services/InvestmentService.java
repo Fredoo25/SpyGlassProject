@@ -60,19 +60,26 @@ public class InvestmentService {
   //
 
   /**
-   * @param        userUID
-   * @return
+   *
+   * @param userUID
+   * @return List of Investment Accounts found for the user.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when no goals matching criteria are found.
    */
-  public ArrayList<Object> getInvestmentAccounts(String userUID) throws ExecutionException, InterruptedException {
+  public ArrayList<String> getInvestmentAccounts(String userUID) throws ExecutionException, InterruptedException {
     storageService.getInvestmentAccounts(userUID);
     return new ArrayList<>();
   }
 
 
   /**
-   * @param        newInvestment
-   * @param        userUID
-   * @return
+   *
+   * @param newInvestment
+   * @param userUID
+   * @return Boolean true if investment was added
+   * @throws InvestmentAccountAlreadyExists Thrown when attempting to add an Investment Account which already exists.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when no goals matching criteria are found.
    */
   public boolean addInvestment(InvestmentAccount newInvestment, UUID userUID) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
     storageService.addInvestmentAccount(newInvestment);
@@ -82,8 +89,12 @@ public class InvestmentService {
 
 
   /**
-   * @return       InvestmentAccount
-   * @param        investmentUID
+   *
+   * @param investmentUID
+   * @return investmentUID
+   * @throws InvestmentAccountDoesNotExists Thrown when Investment Account does not exists.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when no goals are found.
    */
   public String getInvestment(String investmentUID) throws InvestmentAccountDoesNotExists, ExecutionException, InterruptedException {
     storageService.getInvestment(investmentUID);

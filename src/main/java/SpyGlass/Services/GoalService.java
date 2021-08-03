@@ -7,7 +7,8 @@ import SpyGlass.Models.Goal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -60,8 +61,12 @@ public class GoalService {
   //
 
   /**
-   * @return       boolean
-   * @param        goalUID
+   * delete a goal
+   * @param goalUID
+   * @return Boolean true if goal was deleted
+   * @throws GoalDoesNotExistException Thrown when attempting to remove a goal which does not exist.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public boolean deleteGoal(String goalUID) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
     storageService.deleteGoal(goalUID);
@@ -70,9 +75,13 @@ public class GoalService {
 
 
   /**
-   * @return       boolean
-   * @param        goalUID
-   * @param        newGoal
+   * Update a goal
+   * @param goalUID
+   * @param newGoal
+   * @return Boolean true if goal was updated
+   * @throws GoalDoesNotExistException Thrown when attempting to update a goal which does not exist.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public boolean updateGoal(String goalUID, Goal newGoal) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
     storageService.updateGoal(goalUID,newGoal);
@@ -82,9 +91,13 @@ public class GoalService {
 
 
   /**
-   * @return       boolean
-   * @param        userUID
-   * @param        newGoal
+   * Add a new goal to userUID
+   * @param userUID
+   * @param newGoal
+   * @return Boolean true if a new goal is added
+   * @throws GoalAlreadyExistsException Thrown when attempting to add a goal which already exists.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public boolean addNewGoal(String userUID, Goal newGoal) throws GoalAlreadyExistsException, ExecutionException, InterruptedException {
     storageService.addNewGoal(newGoal);
@@ -93,7 +106,11 @@ public class GoalService {
 
 
   /**
-   * @param        userUID
+   *
+   * @param userUID
+   * @throws NoGoalsFoundException Thrown when no goals matching criteria are found.
+   * @throws ExecutionException Thrown when the Connection to Database Fails.
+   * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public void getGoals(String userUID) throws NoGoalsFoundException, ExecutionException, InterruptedException {
     storageService.getGoals(userUID);
