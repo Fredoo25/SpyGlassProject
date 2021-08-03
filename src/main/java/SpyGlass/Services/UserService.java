@@ -1,10 +1,13 @@
 package SpyGlass.Services;
 
+import SpyGlass.Exceptions.UserExceptions.UserAlreadyExistsException;
+import SpyGlass.Exceptions.UserExceptions.UserDoesNotExists;
 import SpyGlass.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Class UserService
@@ -23,6 +26,7 @@ public class UserService {
   //
   @Autowired
   public UserService (StorageService storageService) {
+
     this.storageService = storageService;
   };
   
@@ -56,11 +60,12 @@ public class UserService {
   //
 
   /**
-   * @return       Boolean
    * @param        newUser
+   * @return
    */
-  public Boolean addUser(User newUser)
-  {
+  public boolean addUser(User newUser) throws UserAlreadyExistsException, ExecutionException, InterruptedException {
+    storageService.addUser(newUser);
+    return true;
   }
 
 
@@ -68,8 +73,9 @@ public class UserService {
    * @return       Boolean
    * @param        updatedUser
    */
-  public Boolean updateUser(User updatedUser)
-  {
+  public Boolean updateUser(User updatedUser) throws UserDoesNotExists, ExecutionException, InterruptedException {
+    storageService.updateUser(updatedUser);
+    return true;
   }
 
 
@@ -77,8 +83,9 @@ public class UserService {
    * @return       Boolean
    * @param        userUID
    */
-  public Boolean deleteUser(UUID userUID)
-  {
+  public Boolean deleteUser(String userUID) throws UserDoesNotExists, ExecutionException, InterruptedException {
+    storageService.deleteUser(userUID);
+    return true;
   }
 
 
