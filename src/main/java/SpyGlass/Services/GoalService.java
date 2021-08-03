@@ -1,10 +1,14 @@
 package SpyGlass.Services;
 
+import SpyGlass.Exceptions.GoalExceptions.GoalAlreadyExistsException;
+import SpyGlass.Exceptions.GoalExceptions.GoalDoesNotExistException;
+import SpyGlass.Exceptions.GoalExceptions.NoGoalsFoundException;
 import SpyGlass.Models.Goal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Class GoalService
@@ -59,8 +63,9 @@ public class GoalService {
    * @return       boolean
    * @param        goalUID
    */
-  public boolean deleteGoal(UUID goalUID)
-  {
+  public boolean deleteGoal(String goalUID) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
+    storageService.deleteGoal(goalUID);
+    return true;
   }
 
 
@@ -69,8 +74,9 @@ public class GoalService {
    * @param        goalUID
    * @param        newGoal
    */
-  public boolean updateGoal(UUID goalUID, Goal newGoal)
-  {
+  public boolean updateGoal(String goalUID, Goal newGoal) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
+    storageService.updateGoal(goalUID,newGoal);
+    return true;
   }
 
 
@@ -79,15 +85,17 @@ public class GoalService {
    * @param        userUID
    * @param        newGoal
    */
-  public boolean addNewGoal(UUID userUID, Goal newGoal) {
+  public boolean addNewGoal(String userUID, Goal newGoal) throws GoalAlreadyExistsException, ExecutionException, InterruptedException {
+    storageService.addNewGoal(newGoal);
+    return true;
   }
 
 
   /**
-   * @param        uiserUID
+   * @param        userUID
    */
-  public void getGoals(UUID uiserUID)
-  {
+  public void getGoals(String userUID) throws NoGoalsFoundException, ExecutionException, InterruptedException {
+    storageService.getGoals(userUID);
   }
 
 
