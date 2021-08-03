@@ -53,6 +53,25 @@ public class Goal {
     computeAmountPerInterval();
   }
 
+  public Goal(String uid, double amount, double current, String name, String description, String imageURL,
+              LocalDate startDate, LocalDate projectedEndDate, boolean isInvested, double amountPerInterval,
+              IncrementFrequency savingInterval, boolean onTrack, String investmentAccountUID, String userUID) {
+    this.uid = UUID.fromString(uid);
+    this.amount = amount;
+    this.current = current;
+    this.name = name;
+    this.description = description;
+    this.imageURL = imageURL;
+    this.startDate = startDate;
+    this.projectedEndDate = projectedEndDate;
+    this.isInvested = isInvested;
+    this.amountPerInterval = amountPerInterval;
+    this.savingInterval = savingInterval;
+    this.onTrack = onTrack;
+    this.investmentAccountUID = UUID.fromString(investmentAccountUID);
+    this.userUID = UUID.fromString(userUID);
+  }
+
   //
   // Methods
   //
