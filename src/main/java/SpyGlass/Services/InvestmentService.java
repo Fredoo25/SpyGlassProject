@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -66,9 +67,9 @@ public class InvestmentService {
    * @throws ExecutionException Thrown when the Connection to Database Fails.
    * @throws InterruptedException Thrown when no goals matching criteria are found.
    */
-  public ArrayList<String> getInvestmentAccounts(String userUID) throws ExecutionException, InterruptedException {
-    storageService.getInvestmentAccounts(userUID);
-    return new ArrayList<>();
+  public List<InvestmentAccount> getInvestmentAccounts(String userUID) throws ExecutionException, InterruptedException {
+    return storageService.getInvestmentAccounts(userUID);
+
   }
 
 
@@ -81,7 +82,7 @@ public class InvestmentService {
    * @throws ExecutionException Thrown when the Connection to Database Fails.
    * @throws InterruptedException Thrown when no goals matching criteria are found.
    */
-  public boolean addInvestment(InvestmentAccount newInvestment, UUID userUID) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
+  public boolean addInvestment(InvestmentAccount newInvestment, String userUID) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
     storageService.addInvestmentAccount(newInvestment);
     return true;
 

@@ -4,6 +4,7 @@ import SpyGlass.Exceptions.GoalExceptions.GoalAlreadyExistsException;
 import SpyGlass.Exceptions.GoalExceptions.GoalDoesNotExistException;
 import SpyGlass.Exceptions.GoalExceptions.NoGoalsFoundException;
 import SpyGlass.Models.Goal;
+import SpyGlass.Models.InvestmentAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -112,8 +113,8 @@ public class GoalService {
    * @throws ExecutionException Thrown when the Connection to Database Fails.
    * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
-  public void getGoals(String userUID) throws NoGoalsFoundException, ExecutionException, InterruptedException {
-    storageService.getGoals(userUID);
+  public List<Goal> getGoals(String userUID) throws NoGoalsFoundException, ExecutionException, InterruptedException {
+    return storageService.getGoals(userUID);
   }
 
 
