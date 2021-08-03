@@ -1,16 +1,18 @@
 package SpyGlass.Controllers;
 
+import SpyGlass.Exceptions.GoalExceptions.GoalAlreadyExistsException;
+import SpyGlass.Exceptions.GoalExceptions.GoalDoesNotExistException;
+import SpyGlass.Exceptions.GoalExceptions.NoGoalsFoundException;
 import SpyGlass.Models.Goal;
 import SpyGlass.Services.GoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Class GoalController
@@ -42,8 +44,7 @@ public class GoalController {
    * @param        userUID
    */
   @GetMapping("/{userUID}")
-  public ResponseEntity<List<Goal>> getGoals(UUID userUID)
-  {
+  public ResponseEntity<List<Goal>> getGoals(@PathVariable String userUID) throws NoGoalsFoundException, ExecutionException, InterruptedException {
     return new ResponseEntity<>(goalService.getGoals(userUID), HttpStatus.OK);
   }
 
@@ -53,8 +54,8 @@ public class GoalController {
    * @param        userUID
    * @param        newGoal
    */
-  public ResponseEntity<Boolean> addNewGoal(UUID userUID, Goal newGoal)
-  {
+  @PostMapping("/{userUID}")
+  public ResponseEntity<Boolean> addNewGoal(@PathVariable String userUID, @RequestBody Goal newGoal) throws GoalAlreadyExistsException, ExecutionException, InterruptedException {
     return new ResponseEntity<>(goalService.addNewGoal(userUID, newGoal), HttpStatus.CREATED);
   }
 
@@ -64,8 +65,8 @@ public class GoalController {
    * @param        goalUID
    * @param        newGoal
    */
-  public ResponseEntity<Boolean> updateGoal(UUID goalUID, Goal newGoal)
-  {
+@PutMapping("/{goalUID}")
+  public ResponseEntity<Boolean> updateGoal(@PathVariable String goalUID, @RequestBody Goal newGoal) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
     return new ResponseEntity<>(goalService.updateGoal(goalUID, newGoal), HttpStatus.CREATED);
   }
 
@@ -74,8 +75,8 @@ public class GoalController {
    * @return       ResponseEntity<Boolean>
    * @param        goalUID
    */
-  public ResponseEntity<Boolean> deleteGoal(UUID goalUID)
-  {
+  @DeleteMapping("/{goalUID}")
+  public ResponseEntity<Boolean> deleteGoal(@PathVariable String goalUID) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
     return new ResponseEntity<>( goalService.deleteGoal(goalUID), HttpStatus.OK);
   }
 
