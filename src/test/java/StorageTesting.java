@@ -28,9 +28,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class StorageTesting {
 
-    StorageService storageService = new StorageService();
-    final User testUser = new User();
-    final Goal testGoal = new Goal();
+    final static StorageService storageService = new StorageService();
 
     @Test
     synchronized public void doAllUserTests() {
@@ -51,9 +49,9 @@ public class StorageTesting {
     synchronized public void doAllGoalTests() {
         final User testUser2 = new User();
 
-        final Goal testGoal = new Goal(UUID.randomUUID().toString(), 0.0, 0.0, "", "", "", (long) 398983, (long)9393990, true, 0.0, IncrementFrequency.Daily, true, "", testUser2.getUid());
+        final Goal testGoal = new Goal(UUID.randomUUID().toString(), 0.0, 0.0, "", "", "", (long) 398983, (long)9393990, true, 0.0, IncrementFrequency.Daily, true, UUID.randomUUID().toString(), testUser2.getUid());
 
-        final Goal testGoal2 = new Goal(UUID.randomUUID().toString(), 0.0, 0.0, "", "", "", (long) 398983, (long)9393990, true, 0.0, IncrementFrequency.Daily, true, "", testUser2.getUid());
+        final Goal testGoal2 = new Goal(UUID.randomUUID().toString(), 0.0, 0.0, "", "", "", (long) 398983, (long)9393990, true, 0.0, IncrementFrequency.Daily, true, UUID.randomUUID().toString(), testUser2.getUid());
 
         try{
             addGoalTest(testGoal);
@@ -61,6 +59,7 @@ public class StorageTesting {
             updateGoalTest(testGoal);
             getGoalsTest(testUser2, testGoal, testGoal2);
             deleteGoalTest(testGoal);
+            deleteGoalTest(testGoal2);
             Assertions.assertTrue(true);
         }catch (Exception ex) {
             Assertions.fail();
@@ -104,7 +103,7 @@ public class StorageTesting {
 
     }
 
-    @Test
+
     synchronized public void deleteUserTest(User testUser) throws ExecutionException, InterruptedException,UserDoesNotExists {
         storageService.deleteUser(testUser.getUid());
         try {
@@ -115,7 +114,7 @@ public class StorageTesting {
 
     }
 
-    @Test
+
     synchronized public void addGoalTest(Goal testGoal) {
         try {
             Boolean actual = storageService.addNewGoal(testGoal);
@@ -125,14 +124,13 @@ public class StorageTesting {
         }
     }
 
-    @Test
+
     synchronized public void getGoalTest(Goal testGoal) throws ExecutionException, InterruptedException, GoalDoesNotExistException {
         Goal Actual = storageService.getGoal(testGoal.getUid());
         assertThat(Actual).isEqualTo(testGoal);
     }
 
-    @Test
-    synchronized public void updateGoalTest(Goal testGoal) {
+   synchronized public void updateGoalTest(Goal testGoal) {
         try {
             testGoal.setName("test");
             Boolean actual = storageService.updateGoal(testGoal.getUid(), testGoal);
@@ -142,7 +140,7 @@ public class StorageTesting {
         }
     }
 
-    @Test
+
     synchronized public void deleteGoalTest(Goal testGoal) throws ExecutionException, InterruptedException, GoalDoesNotExistException {
         storageService.deleteGoal(testGoal.getUid());
         try {
@@ -152,7 +150,7 @@ public class StorageTesting {
         }
     }
 
-    @Test
+
     synchronized public void getGoalsTest(User testUser, Goal testGoal, Goal testGoal2) throws GoalAlreadyExistsException, ExecutionException, InterruptedException, NoGoalsFoundException {
         storageService.addNewGoal(testGoal2);
 
@@ -165,7 +163,7 @@ public class StorageTesting {
         assertThat(Actual).isEqualTo(Expected);
     }
 
-    @Test
+
     public void addInvestmentTest() throws ExecutionException, InterruptedException, InvestmentAccountAlreadyExists {
 //        InvestmentAccount investmentAccount = new InvestmentAccount();
 //        investmentAccount.setUserUID(testUser.getUid());
@@ -175,7 +173,7 @@ public class StorageTesting {
 
     }
 
-    @Test
+
     public void getInvestmentTest() throws ExecutionException, InterruptedException, InvestmentAccountAlreadyExists, InvestmentAccountDoesNotExists {
         InvestmentAccount investmentAccount = new InvestmentAccount();
         storageService.addInvestmentAccount(investmentAccount);
@@ -183,7 +181,7 @@ public class StorageTesting {
         assertThat(Actual).isEqualTo(investmentAccount);
     }
 
-    @Test
+
     public void getInvestmentsTest() throws ExecutionException, InterruptedException, NoGoalsFoundException, InvestmentAccountAlreadyExists {
 //        InvestmentAccount investmentAccount = new InvestmentAccount();
 //        InvestmentAccount investmentAccount2 = new InvestmentAccount();
