@@ -51,9 +51,9 @@ public class StorageTesting {
     synchronized public void doAllGoalTests() {
         final User testUser2 = new User();
 
-        final Goal testGoal = new Goal(UUID.randomUUID().toString(), 0.0, 0.0, "", "", "", LocalDate.now()., LocalDate.now(), true, 0.0, IncrementFrequency.Daily, true, "", testUser2.getUid());
+        final Goal testGoal = new Goal(UUID.randomUUID().toString(), 0.0, 0.0, "", "", "", (long) 398983, (long)9393990, true, 0.0, IncrementFrequency.Daily, true, "", testUser2.getUid());
 
-        final Goal testGoal2 = new Goal(UUID.randomUUID().toString(), 0.0, 0.0, "", "", "", LocalDate.now(), LocalDate.now(), true, 0.0, IncrementFrequency.Daily, true, "", testUser2.getUid());
+        final Goal testGoal2 = new Goal(UUID.randomUUID().toString(), 0.0, 0.0, "", "", "", (long) 398983, (long)9393990, true, 0.0, IncrementFrequency.Daily, true, "", testUser2.getUid());
 
         try{
             addGoalTest(testGoal);
