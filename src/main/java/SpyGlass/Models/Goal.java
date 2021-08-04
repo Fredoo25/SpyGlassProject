@@ -261,10 +261,6 @@ public class Goal {
     isInvested = invested;
   }
 
-  public boolean isOnTrack() {
-    return onTrack;
-  }
-
   /**
    * Set the value of investmentAccountUID
    * @param newVar the new value of investmentAccountUID
