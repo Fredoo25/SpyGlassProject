@@ -1,6 +1,8 @@
 package SpyGlass.Models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,30 +15,31 @@ public class Goal {
   // Fields
   //
 
-  private String uid;
+  private UUID uid;
   private double amount;
   private double current;
   private String name;
   private String description;
   private String imageURL;
-  private LocalDate startDate;
-  private LocalDate projectedEndDate;
+  private Long startDate;
+  private Long projectedEndDate;
   private boolean isInvested;
   private double amountPerInterval;
   private IncrementFrequency savingInterval;
   private boolean onTrack;
-  private String investmentAccountUID;
-  private String userUID;
-  
+  private UUID investmentAccountUID;
+  private UUID userUID;
+  private static final ZoneId ZONE_ID = ZoneId.systemDefault();
+  private static final Long SECONDS_IN_MONTH = 2_592_000L;
   //
   // Constructors
   //
   public Goal () {
-    this.uid = UUID.randomUUID().toString();
-    this.startDate = LocalDate.now();
+    this.uid = UUID.randomUUID();
+    this.startDate = (LocalDateTime.now().atZone(ZONE_ID).toEpochSecond());
   };
 
-  public Goal(String name, String description, LocalDate projectedEndDate, boolean isInvested,
+  public Goal(String name, String description, Long projectedEndDate, boolean isInvested,
               IncrementFrequency savingInterval, String investmentAccountUID, String userUID, double amount,
               String imageURL, double current) {
     this();
@@ -48,15 +51,15 @@ public class Goal {
     this.projectedEndDate = projectedEndDate;
     this.isInvested = isInvested;
     this.savingInterval = savingInterval;
-    this.investmentAccountUID = investmentAccountUID;
-    this.userUID = userUID;
+    this.investmentAccountUID = UUID.fromString(investmentAccountUID);
+    this.userUID = UUID.fromString(userUID);
     computeAmountPerInterval();
   }
 
   public Goal(String uid, double amount, double current, String name, String description, String imageURL,
-              LocalDate startDate, LocalDate projectedEndDate, boolean isInvested, double amountPerInterval,
+              Long startDate, Long projectedEndDate, boolean isInvested, double amountPerInterval,
               IncrementFrequency savingInterval, boolean onTrack, String investmentAccountUID, String userUID) {
-    this.uid =uid;
+    this.uid = UUID.fromString(uid);
     this.amount = amount;
     this.current = current;
     this.name = name;
@@ -68,8 +71,8 @@ public class Goal {
     this.amountPerInterval = amountPerInterval;
     this.savingInterval = savingInterval;
     this.onTrack = onTrack;
-    this.investmentAccountUID = investmentAccountUID;
-    this.userUID = userUID;
+    this.investmentAccountUID = UUID.fromString(investmentAccountUID);
+    this.userUID = UUID.fromString(userUID);
   }
 
   //
@@ -103,7 +106,7 @@ public class Goal {
    * @param newVar the new value of uid
    */
   public void setUid (String newVar) {
-    uid =newVar;
+    uid = UUID.fromString(newVar);
   }
 
   /**
@@ -150,7 +153,7 @@ public class Goal {
    * Set the value of startDate
    * @param newVar the new value of startDate
    */
-  public void setStartDate (LocalDate newVar) {
+  public void setStartDate (Long newVar) {
     startDate = newVar;
   }
 
@@ -158,7 +161,7 @@ public class Goal {
    * Get the value of startDate
    * @return the value of startDate
    */
-  public LocalDate getStartDate () {
+  public Long getStartDate () {
     return startDate;
   }
 
@@ -166,7 +169,7 @@ public class Goal {
    * Set the value of projectedEndDate
    * @param newVar the new value of projectedEndDate
    */
-  public void setProjectedEndDate (LocalDate newVar) {
+  public void setProjectedEndDate (Long newVar) {
     projectedEndDate = newVar;
   }
 
@@ -174,7 +177,7 @@ public class Goal {
    * Get the value of projectedEndDate
    * @return the value of projectedEndDate
    */
-  public LocalDate getProjectedEndDate () {
+  public Long getProjectedEndDate () {
     return projectedEndDate;
   }
 
@@ -267,7 +270,7 @@ public class Goal {
    * @param newVar the new value of investmentAccountUID
    */
   public void setInvestmentAccountUID (String newVar) {
-    investmentAccountUID =newVar;
+    investmentAccountUID = UUID.fromString(newVar);
   }
 
   /**
@@ -283,7 +286,7 @@ public class Goal {
    * @param newVar the new value of userUID
    */
   public void setUserUID (String newVar) {
-    userUID = newVar;
+    userUID = UUID.fromString(newVar);
   }
 
   /**
@@ -296,15 +299,15 @@ public class Goal {
 
   private void computeAmountPerInterval() {
     if(!isInvested) {
-      var month = startDate.until(projectedEndDate).getMonths();
+      var months =  (projectedEndDate - startDate) / SECONDS_IN_MONTH;
       this.amountPerInterval = this.savingInterval != IncrementFrequency.Monthly?
-              (this.amount / (month * this.savingInterval.sections)) : (this.amount / month);
+              (this.amount / (months * this.savingInterval.sections)) : (this.amount / months);
      }
   }
 
   public void updateAmountPerInterval() {
     if(!isInvested) {
-      var month = LocalDate.now().until(projectedEndDate).getMonths();
+      var month = (LocalDateTime.now().atZone(ZONE_ID).toEpochSecond() - projectedEndDate) / SECONDS_IN_MONTH;
       this.amountPerInterval = this.savingInterval != IncrementFrequency.Monthly ?
               (this.amount / (month * this.savingInterval.sections)) : (this.amount / month);
     }
@@ -323,7 +326,6 @@ public class Goal {
   public int hashCode() {
     return Objects.hash(uid, name, description, startDate, projectedEndDate, isInvested, amountPerInterval, savingInterval, onTrack, investmentAccountUID, userUID);
   }
-
 
   @Override
   public String toString() {
