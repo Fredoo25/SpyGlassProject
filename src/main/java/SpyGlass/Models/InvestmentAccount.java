@@ -29,14 +29,26 @@ public class InvestmentAccount {
     this.uid = UUID.randomUUID();
   };
 
-  public InvestmentAccount(double percentageYield, IncrementFrequency incrementInterval, double currentTotal, double projectedTotal, UUID goalUID, UUID userUID) {
+  public InvestmentAccount(double percentageYield, IncrementFrequency incrementInterval, double currentTotal,
+                           double projectedTotal,String goalUID, String userUID) {
     this();
     this.percentageYield = percentageYield;
     this.incrementInterval = incrementInterval;
     this.currentTotal = currentTotal;
     this.projectedTotal = projectedTotal;
-    this.goalUID = goalUID;
-    this.userUID = userUID;
+    this.goalUID = UUID.fromString(goalUID);
+    this.userUID = UUID.fromString(userUID);
+  }
+
+  public InvestmentAccount(double percentageYield, IncrementFrequency incrementInterval, double currentTotal,
+                           double projectedTotal, String goalUID, String userUID,String uid) {
+    this.percentageYield = percentageYield;
+    this.incrementInterval = incrementInterval;
+    this.currentTotal = currentTotal;
+    this.projectedTotal = projectedTotal;
+    this.goalUID = UUID.fromString(goalUID);
+    this.userUID = UUID.fromString(userUID);
+    this.uid = UUID.fromString(uid);
   }
 
   //
