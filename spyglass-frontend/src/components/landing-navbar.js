@@ -30,20 +30,24 @@ const NavBar = (props) => {
     return (
         <AppBar className={classes.appBar} elevation={10}>
             <Toolbar>
-                <Typography className={classes.title} variant='h2'  >{props.title}</Typography>
+                <Typography className={classes.title} variant='h2'>{props.title}</Typography>
                 <Container>
-                    <Button onClick={() => {}}>
-                        <Typography className={classes.menu} variant='overline' >Product</Typography>
+                    <Button onClick={() => {
+                    }}>
+                        <Typography className={classes.menu} variant='overline'>Product</Typography>
                     </Button>
                 </Container>
                 <Container>
-                    <Button onClick={() => {}}>
-                        <Typography className={classes.menu} variant='overline' >Contact Us</Typography>
+                    <Button onClick={() => {
+                    }}>
+                        <Typography className={classes.menu} variant='overline'>Contact Us</Typography>
                     </Button>
                 </Container>
-               
-                    <PrimaryButton title="Login" padding={2} onClick={() => {}}></PrimaryButton>
-                    <SecundaryButton title="Register" padding={2} onClick={() => {}}></SecundaryButton>
+
+                <PrimaryButton title="Login" padding={2} onClick={() => {
+                }}/>
+                <SecundaryButton title="Register" padding={2} onClick={() => {
+                }}/>
 
             </Toolbar>
         </AppBar>
