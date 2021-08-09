@@ -65,7 +65,7 @@ public class UserController {
    */
   //  DELETE request to remove a specified user via userService
   @DeleteMapping("/{userUID}")
-  public Boolean deleteUser(String userUID) throws UserDoesNotExists, ExecutionException, InterruptedException {
+  public Boolean deleteUser(@PathVariable String userUID) throws UserDoesNotExists, ExecutionException, InterruptedException {
     return userService.deleteUser(userUID);
   }
 
