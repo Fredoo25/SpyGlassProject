@@ -18,15 +18,15 @@ public class InvestmentAccount {
   private IncrementFrequency incrementInterval;
   private double currentTotal;
   private double projectedTotal;
-  private UUID goalUID;
-  private UUID userUID;
-  private UUID uid;
+  private String goalUID;
+  private String userUID;
+  private String uid;
   
   //
   // Constructors
   //
   public InvestmentAccount () {
-    this.uid = UUID.randomUUID();
+    this.uid = UUID.randomUUID().toString();
   };
 
   public InvestmentAccount(double percentageYield, IncrementFrequency incrementInterval, double currentTotal,
@@ -36,8 +36,8 @@ public class InvestmentAccount {
     this.incrementInterval = incrementInterval;
     this.currentTotal = currentTotal;
     this.projectedTotal = projectedTotal;
-    this.goalUID = UUID.fromString(goalUID);
-    this.userUID = UUID.fromString(userUID);
+    this.goalUID = goalUID;
+    this.userUID = userUID;
   }
 
   public InvestmentAccount(double percentageYield, IncrementFrequency incrementInterval, double currentTotal,
@@ -46,9 +46,9 @@ public class InvestmentAccount {
     this.incrementInterval = incrementInterval;
     this.currentTotal = currentTotal;
     this.projectedTotal = projectedTotal;
-    this.goalUID = UUID.fromString(goalUID);
-    this.userUID = UUID.fromString(userUID);
-    this.uid = UUID.fromString(uid);
+    this.goalUID = goalUID;
+    this.userUID = userUID;
+    this.uid = uid;
   }
 
   //
@@ -66,7 +66,7 @@ public class InvestmentAccount {
   }
 
   public void setUid(String uid) {
-    this.uid = UUID.fromString(uid);
+    this.uid = uid;
   }
 
   /**
@@ -138,7 +138,7 @@ public class InvestmentAccount {
    * @param newVar the new value of goalUID
    */
   public void setGoalUID (String newVar) {
-    goalUID = UUID.fromString(newVar);
+    goalUID = newVar;
   }
 
   /**
@@ -154,7 +154,7 @@ public class InvestmentAccount {
    * @param newVar the new value of userUID
    */
   public void setUserUID (String newVar) {
-    userUID = UUID.fromString(newVar);
+    userUID = newVar;
   }
 
   /**
