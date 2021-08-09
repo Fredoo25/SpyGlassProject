@@ -83,8 +83,8 @@ public class InvestmentService {
    * @throws InterruptedException Thrown when no goals matching criteria are found.
    */
   public boolean addInvestment(InvestmentAccount newInvestment, String userUID) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
-    storageService.addInvestmentAccount(newInvestment);
-    return true;
+    return storageService.addInvestmentAccount(newInvestment);
+
 
   }
 
