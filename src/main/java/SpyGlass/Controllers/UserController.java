@@ -41,9 +41,10 @@ public class UserController {
    * @return       ResponseEntity<Boolean>
    * @param        newUser
    */
+  //  POST request that adds new user via userService
   @PostMapping
-  public ResponseEntity<Boolean> newUser(@RequestBody User newUser) throws UserAlreadyExistsException, ExecutionException, InterruptedException {
-    return new ResponseEntity<>(userService.addUser(newUser), HttpStatus.CREATED);
+  public Boolean newUser(@RequestBody User newUser) throws UserAlreadyExistsException, ExecutionException, InterruptedException {
+    return userService.addUser(newUser);
   }
 
 
@@ -51,9 +52,10 @@ public class UserController {
    * @return       ResponseEntity<Boolean>
    * @param        updatedUser
    */
+  //  PUT request to update specified user's information via userService
   @PutMapping
-  public ResponseEntity<Boolean> updateUser(@RequestBody User updatedUser) throws UserDoesNotExists, ExecutionException, InterruptedException {
-    return new ResponseEntity<>(userService.updateUser(updatedUser), HttpStatus.CREATED);
+  public Boolean updateUser(@RequestBody User updatedUser) throws UserDoesNotExists, ExecutionException, InterruptedException {
+    return userService.updateUser(updatedUser);
   }
 
 
@@ -61,9 +63,10 @@ public class UserController {
    * @return       ResponseEntity<Boolean>
    * @param        userUID
    */
+  //  DELETE request to remove a specified user via userService
   @DeleteMapping("/{userUID}")
-  public ResponseEntity<Boolean> deleteUser(String userUID) throws UserDoesNotExists, ExecutionException, InterruptedException {
-    return new ResponseEntity<>(userService.deleteUser(userUID), HttpStatus.OK);
+  public Boolean deleteUser(@PathVariable String userUID) throws UserDoesNotExists, ExecutionException, InterruptedException {
+    return userService.deleteUser(userUID);
   }
 
 

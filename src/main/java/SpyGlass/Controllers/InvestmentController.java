@@ -40,9 +40,10 @@ public class InvestmentController {
    * @param        userUID
    * @param        newInvestment
    */
+  //  POST request that adds investment via investmentService
   @PostMapping("/{userUID}")
-  public ResponseEntity<Boolean> addInvestment(@PathVariable String userUID, @RequestBody InvestmentAccount newInvestment) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
-    return new ResponseEntity<>(investmentService.addInvestment(newInvestment, userUID), HttpStatus.CREATED);
+  public Boolean addInvestment(@PathVariable String userUID, @RequestBody InvestmentAccount newInvestment) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
+    return investmentService.addInvestment(newInvestment, userUID);
   }
 
 
@@ -50,9 +51,10 @@ public class InvestmentController {
    * @return       ResponseEntity<List<InvestmentAccounts>>
    * @param        userUID
    */
+  //  GET request that retrieves all investments via investmentService
   @GetMapping("/{userUID}")
-  public ResponseEntity<ArrayList<Object>> getInvestments(@PathVariable String userUID) throws ExecutionException, InterruptedException {
-    return new ResponseEntity<>(investmentService.getInvestmentAccounts(userUID), HttpStatus.OK);
+  public List<InvestmentAccount> getInvestments(@PathVariable String userUID) throws ExecutionException, InterruptedException {
+    return investmentService.getInvestmentAccounts(userUID);
   }
 
 
@@ -60,9 +62,10 @@ public class InvestmentController {
    * @return       ResponseEntity<InvestmentAccount>
    * @param        investmentUID
    */
+  //  GET request that retrieves single specified investment via investmentService
   @GetMapping("/{investmentUID}")
-  public ResponseEntity<String> getInvestment(@PathVariable String investmentUID) throws InvestmentAccountDoesNotExists, ExecutionException, InterruptedException {
-    return new ResponseEntity<>(investmentService.getInvestment(investmentUID), HttpStatus.OK);
+  public InvestmentAccount getInvestment(@PathVariable String investmentUID) throws InvestmentAccountDoesNotExists, ExecutionException, InterruptedException {
+    return investmentService.getInvestment(investmentUID);
   }
 
 
