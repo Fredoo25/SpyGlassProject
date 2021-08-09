@@ -1,7 +1,6 @@
 import Colors from "../constants/colors";
 import {Box, Card, Typography} from "@material-ui/core";
 import {ThemedTextField, Types} from "./themed-text_field";
-import {Telegram} from "@material-ui/icons";
 import PrimaryButton from "./primaryButton";
 import SecundaryButton from "./secundaryButton";
 
@@ -31,6 +30,17 @@ const RegisterCard = (props) => {
     const handleUpdatePassword = (event) => setPassword(event.target.value)
     const handleUpdateConfirmPassword = (event) => setConfirmPassword(event.target.value);
 
+    const handleRegister = () => {
+       //Validate
+    }
+
+    const handleFlipToLogin = () => {
+        props.flip()
+    }
+
+    const handleCancel = () => {
+        props.onCancel()
+    }
     return(<div>
         <Box width={400} height={700}>
             <Card elevation={20}>
@@ -39,7 +49,7 @@ const RegisterCard = (props) => {
                 <ThemedTextField label={"Email"} hintText={"Enter your email"} type={Types.email} onChanged={handleUpdateEmail} />
                 <ThemedTextField label={"Password"} hintText={"Enter your password"} type={Types.password} onChanged={handleUpdatePassword} />
                 <ThemedTextField label={"Confirm Password"} hintText={"Confirm your password"} type={Types.password} onChanged={handleUpdateConfirmPassword} />
-                <PrimaryButton title={"Register"} onClick={() => {}} padding={2} />
+                <PrimaryButton title={"Register"} onClick={handleRegister} padding={2} />
                 <SecundaryButton title={"Already have and account?"} onClick={() => {}} padding={2} />
                 <SecundaryButton title={"Cancel"} onClick={() => {}} padding={2} />
             </Card>

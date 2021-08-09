@@ -1,7 +1,9 @@
-import { AppBar, makeStyles, Toolbar, Typography, Container, Button } from "@material-ui/core";
+import {AppBar, makeStyles, Toolbar, Typography, Container, Button, Modal} from "@material-ui/core";
 import PrimaryButton from "./primaryButton";
 import SecundaryButton from "./secundaryButton";
 import Colors from "../constants/colors";
+import {useState} from "react";
+import {AuthCard, InitialFace} from "./auth-card";
 
 const useStyles = makeStyles({
     appBar: {
@@ -26,8 +28,24 @@ const useStyles = makeStyles({
 
 const NavBar = (props) => {
     const classes = useStyles();
+    const [modalIsOpen, setModelIsOpen] = useState(false)
+    const [modalFace, setModalFace] = useState(InitialFace.Login)
+
+    const handleOpen = () => {
+        setModelIsOpen(true)
+    }
+
+    const handleClose = () => {
+        setModelIsOpen(false)
+    }
+
+    const handleRegister = () => {
+        setModalFace(InitialFace.Register)
+        setModelIsOpen(true)
+    }
 
     return (
+        <div>
         <AppBar className={classes.appBar} elevation={10}>
             <Toolbar>
                 <Typography className={classes.title} variant='h2'>{props.title}</Typography>
@@ -44,13 +62,13 @@ const NavBar = (props) => {
                     </Button>
                 </Container>
 
-                <PrimaryButton title="Login" padding={2} onClick={() => {
-                }}/>
-                <SecundaryButton title="Register" padding={2} onClick={() => {
-                }}/>
+                <PrimaryButton title="Login" padding={2} onClick={handleOpen}/>
+                <SecundaryButton title="Register" padding={2} onClick={handleRegister}/>
 
             </Toolbar>
         </AppBar>
+        <Modal open={modalIsOpen} onClose={handleClose} children={<AuthCard face={modalFace} /> }/>
+        </div>
     )
 }
 
