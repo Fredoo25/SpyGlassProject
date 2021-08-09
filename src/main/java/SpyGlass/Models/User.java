@@ -18,33 +18,31 @@ public class User {
   /**
    * User Uinique Identifier
    */
-  private UUID uid;
+  private String uid;
   /**
    * List of UID For Goals.
    */
-  private List<UUID> goals;
+  private List<String> goals = new ArrayList<>();
   /**
    * List of Investment Accounts. 
    */
-  private List<UUID> investmentAccounts;
+  private List<String> investmentAccounts = new ArrayList<>();
   
   //
   // Constructors
   //
 
     public User() {
-        this.uid = UUID.randomUUID();
-        this.goals = new ArrayList<>();
-        this.investmentAccounts = new ArrayList<>();
+        this.uid = UUID.randomUUID().toString();
     }
 
-    public User(String uid, List<UUID> goals, List<UUID> investmentAccounts) {
-        this.uid = UUID.fromString(uid);
+    public User(String uid, List<String> goals, List<String> investmentAccounts) {
+        this.uid = uid;
         this.goals = goals;
         this.investmentAccounts = investmentAccounts;
     }
 
-    public User(List<UUID> goals, List<UUID> investmentAccounts) {
+    public User(List<String> goals, List<String> investmentAccounts) {
         this();
         this.goals = goals;
         this.investmentAccounts = investmentAccounts;
@@ -65,7 +63,7 @@ public class User {
    * @param newVar the new value of uid
    */
   public void setUid (String newVar) {
-    uid = UUID.fromString(newVar);
+    uid = newVar;
   }
 
   /**
@@ -82,7 +80,7 @@ public class User {
    * List of UID For Goals.
    * @param newVar the new value of goals
    */
-  public void setGoals (List<UUID> newVar) {
+  public void setGoals (List<String> newVar) {
     goals = newVar;
   }
 
@@ -92,7 +90,7 @@ public class User {
    * @return the value of goals
    */
   public List<String> getGoals () {
-    return goals.stream().map(UUID::toString).collect(Collectors.toList());
+    return goals;
   }
 
   /**
@@ -100,7 +98,7 @@ public class User {
    * List of Investment Accounts.
    * @param newVar the new value of investmentAccounts
    */
-  public void setInvestmentAccounts (List<UUID> newVar) {
+  public void setInvestmentAccounts (List<String> newVar) {
     investmentAccounts = newVar;
   }
 
@@ -110,7 +108,7 @@ public class User {
    * @return the value of investmentAccounts
    */
   public List<String> getInvestmentAccounts () {
-    return investmentAccounts.stream().map(UUID::toString).collect(Collectors.toList());
+    return investmentAccounts;
   }
 
   //
