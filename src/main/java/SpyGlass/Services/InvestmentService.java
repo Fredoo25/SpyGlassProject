@@ -85,7 +85,6 @@ public class InvestmentService {
   public boolean addInvestment(InvestmentAccount newInvestment, String userUID) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
     return storageService.addInvestmentAccount(newInvestment);
 
-
   }
 
 

@@ -96,7 +96,6 @@ public class UserService {
    */
   public Boolean deleteUser(String userUID) throws UserDoesNotExists, ExecutionException, InterruptedException {
     return storageService.deleteUser(userUID);
-
   }
 
 

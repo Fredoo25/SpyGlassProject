@@ -87,7 +87,6 @@ public class GoalService {
   public boolean updateGoal(String goalUID, Goal newGoal) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
     return storageService.updateGoal(goalUID,newGoal);
 
-
   }
 
 
