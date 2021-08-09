@@ -70,8 +70,8 @@ public class GoalService {
    * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public boolean deleteGoal(String goalUID) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
-    storageService.deleteGoal(goalUID);
-    return true;
+    return storageService.deleteGoal(goalUID);
+
   }
 
 
@@ -85,8 +85,7 @@ public class GoalService {
    * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public boolean updateGoal(String goalUID, Goal newGoal) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
-    storageService.updateGoal(goalUID,newGoal);
-    return true;
+    return storageService.updateGoal(goalUID,newGoal);
 
   }
 
@@ -101,8 +100,7 @@ public class GoalService {
    * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public boolean addNewGoal(String userUID, Goal newGoal) throws GoalAlreadyExistsException, ExecutionException, InterruptedException {
-    storageService.addNewGoal(newGoal);
-    return true;
+    return storageService.addNewGoal(newGoal);
   }
 
 

@@ -68,8 +68,7 @@ public class UserService {
    * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public boolean addUser(User newUser) throws UserAlreadyExistsException, ExecutionException, InterruptedException {
-    storageService.addUser(newUser);
-    return true;
+    return storageService.addUser(newUser);
   }
 
 
@@ -82,8 +81,8 @@ public class UserService {
    * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public Boolean updateUser(User updatedUser) throws UserDoesNotExists, ExecutionException, InterruptedException {
-    storageService.updateUser(updatedUser);
-    return true;
+    return storageService.updateUser(updatedUser);
+
   }
 
 
@@ -96,8 +95,7 @@ public class UserService {
    * @throws InterruptedException Thrown when the connection to database is interrupted.
    */
   public Boolean deleteUser(String userUID) throws UserDoesNotExists, ExecutionException, InterruptedException {
-    storageService.deleteUser(userUID);
-    return true;
+    return storageService.deleteUser(userUID);
   }
 
 
