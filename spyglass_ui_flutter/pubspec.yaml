@@ -89,4 +89,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 assets:
-  - images/default-goal-image.jpg
+  - assets/
+  - assets/images/default-goal-image.jpg

@@ -1,8 +1,6 @@
-import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:spyglass_ui_flutter/components/custom_text_field.dart';
 import 'package:spyglass_ui_flutter/components/primary_btn.dart';
@@ -72,88 +70,94 @@ class RegisterCard extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Welcome To SpyGlass!",
-              style: GoogleFonts.alexBrush(
-                  textStyle: TextStyle(
-                    color: customColors['primary']!,
-                    fontSize: 48,
-                    fontWeight: FontWeight.w300,
+    return Center(
+      child: SizedBox(
+        width: 700,
+        child: Card(
+            margin: const EdgeInsets.all(10),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Welcome To SpyGlass!",
+                    style: GoogleFonts.alexBrush(
+                        textStyle: TextStyle(
+                          color: customColors['primary']!,
+                          fontSize: 36,
+                          fontWeight: FontWeight.w300,
+                        )
+                    ),
+                  ),
+                  SizedBox(height: 30,),
+                  SizedBox(
+                    width: 400,
+                    child: ThemedTextField(
+                      controller: nameField,
+                      label: "Name",
+                      hintText: "Enter your name",
+                      isMultiLine: false,
+                      isPassword: false,
+                      numOfLines: 1,),
+                  ),
+                  SizedBox(height: 20,),
+                  SizedBox(
+                    width: 400,
+                    child: ThemedTextField(
+                      controller: emailField,
+                      label: "Email",
+                      hintText: "Enter your email",
+                      isPassword: false,
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  SizedBox(
+                    width: 400,
+                    child: ThemedTextField(
+                      controller: passField,
+                      isPassword: true,
+                      label: "Password",
+                      hintText: "Create a new Password (Must be 6 characters+)",
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  SizedBox(
+                    width: 400,
+                    child: ThemedTextField(
+                      controller: passConfirmField,
+                      isPassword: true,
+                      label: "Confirm Password",
+                      hintText: "Confirm Password entered above.",
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  SizedBox(
+                    width: 300,
+                    height: 70,
+                    child: PrimaryButton(
+                      onTap: () => validateEmail(context),
+                      title: "Register",
+                      hoverElevation: 20,
+                    ),
+                  ),
+                  SizedBox(
+                      width: 300,
+                      height: 70,
+                      child: SecundaryButton(title: "Already Have an Account?",
+                        onTap: () => this.cardController.toggleCard(),
+                        hoverElevation: 20,)),
+                  SizedBox(
+                    width: 300,
+                    height: 70,
+                    child: SecundaryButton(title: "Cancel",
+                      onTap: () => Navigator.of(context).pop(),
+                      hoverElevation: 20,),
                   )
-              ),
-            ),
-            SizedBox(height: 30,),
-            SizedBox(
-              width: 400,
-              child: ThemedTextField(
-                controller: nameField,
-                label: "Name",
-                hintText: "Enter your name",
-                isMultiLine: false,
-                isPassword: false,
-                numOfLines: 1,),
-            ),
-            SizedBox(height: 20,),
-            SizedBox(
-              width: 400,
-              child: ThemedTextField(
-                controller: emailField,
-                label: "Email",
-                hintText: "Enter your email",
-                isPassword: false,
-              ),
-            ),
-            SizedBox(height: 20,),
-            SizedBox(
-              width: 400,
-              child: ThemedTextField(
-                controller: passField,
-                isPassword: true,
-                label: "Password",
-                hintText: "Create a new Password (Must be 6 characters+)",
-              ),
-            ),
-            SizedBox(height: 20,),
-            SizedBox(
-              width: 400,
-              child: ThemedTextField(
-                controller: passConfirmField,
-                isPassword: true,
-                label: "Confirm Password",
-                hintText: "Confirm Password entered above.",
-              ),
-            ),
-            SizedBox(height: 20,),
-            SizedBox(
-              width: 300,
-              height: 70,
-              child: PrimaryButton(
-                onTap: () => validateEmail(context),
-                title: "Register",
-                hoverElevation: 20,
-              ),
-            ),
-            SizedBox(
-                width: 300,
-                height: 70,
-                child: SecundaryButton(title: "Already Have an Account?",
-                  onTap: () => this.cardController.toggleCard(),
-                  hoverElevation: 20,)),
-            SizedBox(
-              width: 300,
-              height: 70,
-              child: SecundaryButton(title: "Cancel",
-                onTap: () => Navigator.of(context).pop(),
-                hoverElevation: 20,),
-            )
-          ],
-        )
+                ],
+              )
+          ),
+        ),
     );
   }
 }

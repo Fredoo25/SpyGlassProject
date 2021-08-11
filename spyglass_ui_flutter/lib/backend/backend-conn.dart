@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 import 'package:spyglass_ui_flutter/constants/logger.dart';
@@ -12,7 +13,7 @@ import 'package:http/http.dart' as http;
 
 
 final _appController = Get.find<UserController>();
-final dbURI = "http://localhost:8080";
+final dbURI = kIsWeb? "http://localhost:8080" : "http://10.0.2.2:8080";
 final Map<Type, String> _endPoints = {
   User : '/users',
   Goal : '/goals',

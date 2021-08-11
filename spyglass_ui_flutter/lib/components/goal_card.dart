@@ -135,8 +135,8 @@ class GoalCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(
-                      width: 245,
+                    Flexible(
+                      flex: 2,
                       child: ThemedTextField(
                           isPassword: false,
                           label: "Target Amount",
@@ -144,8 +144,8 @@ class GoalCard extends StatelessWidget {
                           controller: targetAmount),
                     ),
                     SizedBox(width: horizontalSeparation),
-                    SizedBox(
-                      width: 245,
+                    Flexible(
+                      flex: 2,
                       child: ThemedTextField(
                           isPassword: false,
                           label: "Start Amount",
@@ -159,8 +159,8 @@ class GoalCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(
-                      width: 245,
+                    Flexible(
+                      flex: 2,
                       child: ThemedTextField(
                         isPassword: false,
                         label: "Start Date",
@@ -170,8 +170,8 @@ class GoalCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: horizontalSeparation),
-                    SizedBox(
-                      width: 245,
+                    Flexible(
+                      flex: 2,
                       child: ThemedTextField(
                         isPassword: false,
                         label: "End Date",
@@ -193,9 +193,8 @@ class GoalCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: 150,
-                      height: 100,
+                    Flexible(
+                      flex: 1,
                       child: SecundaryButton(title: "Upload an Image",
                         onTap: () async {
                           FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -203,20 +202,18 @@ class GoalCard extends StatelessWidget {
                           );
                           if(result != null) {
                             PlatformFile file = result.files.first;
-                            imagePath = await uploadImage(file, goalUID);
+                            imagePath = await uploadImage(file, goalUID, imagePath);
                           } else
                             imagePath = '';
                         },
                         hoverElevation: 20,),),
-                    SizedBox(
-                        width: 150,
-                        height: 100,
+                    Flexible(
+                      flex: 1,
                         child: PrimaryButton(title: "Save",
                           onTap: () => saveNewGoal(context),
                           hoverElevation: 20,)),
-                    SizedBox(
-                        width: 150,
-                        height: 100,
+                    Flexible(
+                      flex: 1,
                         child: SecundaryButton(title: "Cancel",
                           onTap: () => {
                           appController.selectedGoal = -1,
