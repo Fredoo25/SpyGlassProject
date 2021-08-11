@@ -54,7 +54,6 @@ public class GoalController {
 
   /**
    * @return       ResponseEntity<Boolean>
-   * @param        userUID
    * @param        newGoal
    */
   //  Adds new goal to specified user's list of goals

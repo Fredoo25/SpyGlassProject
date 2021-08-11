@@ -43,6 +43,7 @@ public class UserController {
    */
   //  POST request that adds new user via userService
   @PostMapping
+  @CrossOrigin
   public Boolean newUser(@RequestBody User newUser) throws UserAlreadyExistsException, ExecutionException, InterruptedException {
     return userService.addUser(newUser);
   }
@@ -54,6 +55,7 @@ public class UserController {
    */
   //  PUT request to update specified user's information via userService
   @PutMapping
+  @CrossOrigin
   public Boolean updateUser(@RequestBody User updatedUser) throws UserDoesNotExists, ExecutionException, InterruptedException {
     return userService.updateUser(updatedUser);
   }
@@ -65,6 +67,7 @@ public class UserController {
    */
   //  DELETE request to remove a specified user via userService
   @DeleteMapping("/{userUID}")
+  @CrossOrigin
   public Boolean deleteUser(@PathVariable String userUID) throws UserDoesNotExists, ExecutionException, InterruptedException {
     return userService.deleteUser(userUID);
   }
