@@ -102,6 +102,7 @@ Future<T?> getSingle<T extends Serializable>(String resourceUID) async {
     if(response.statusCode == HttpStatus.ok) {
       //Start parsing the response body
       List<dynamic> jsonObjects = await json.decode(response.body);
+      //Convert from json to Objects
       jsonObjects.forEach((element) => parsedObjects.add(fromJson<T>(element)));
       if(parsedObjects.isEmpty) {
         return null;
@@ -109,11 +110,13 @@ Future<T?> getSingle<T extends Serializable>(String resourceUID) async {
         return parsedObjects.first;
       }
     } else {
+      //Otherwise log the error from Server
       logger.e("Could not get resource $type."
       "\nServer Response Code: ${response.statusCode}. "
       "\nServer Response Body: ${response.body}");
     }
   } on Error catch(ex) {
+    //Log errors encountered when doing call or parsing.
     logger.e(ex.toString());
     return null;
   }
