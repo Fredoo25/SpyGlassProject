@@ -1,5 +1,7 @@
 package SpyGlass.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -14,8 +16,7 @@ public class Goal {
   //
   // Fields
   //
-
-  private UUID uid;
+  private String uid;
   private double amount;
   private double current;
   private String name;
@@ -27,15 +28,15 @@ public class Goal {
   private double amountPerInterval;
   private IncrementFrequency savingInterval;
   private boolean onTrack;
-  private UUID investmentAccountUID;
-  private UUID userUID;
+  private String investmentAccountUID;
+  private String userUID;
   private static final ZoneId ZONE_ID = ZoneId.systemDefault();
   private static final Long SECONDS_IN_MONTH = 2_592_000L;
   //
   // Constructors
   //
   public Goal () {
-    this.uid = UUID.randomUUID();
+    this.uid = UUID.randomUUID().toString();
     this.startDate = (LocalDateTime.now().atZone(ZONE_ID).toEpochSecond());
   };
 
@@ -51,15 +52,15 @@ public class Goal {
     this.projectedEndDate = projectedEndDate;
     this.isInvested = isInvested;
     this.savingInterval = savingInterval;
-    this.investmentAccountUID = UUID.fromString(investmentAccountUID);
-    this.userUID = UUID.fromString(userUID);
+    this.investmentAccountUID = investmentAccountUID;
+    this.userUID = userUID;
     computeAmountPerInterval();
   }
 
   public Goal(String uid, double amount, double current, String name, String description, String imageURL,
               Long startDate, Long projectedEndDate, boolean isInvested, double amountPerInterval,
               IncrementFrequency savingInterval, boolean onTrack, String investmentAccountUID, String userUID) {
-    this.uid = UUID.fromString(uid);
+    this.uid = uid;
     this.amount = amount;
     this.current = current;
     this.name = name;
@@ -71,8 +72,8 @@ public class Goal {
     this.amountPerInterval = amountPerInterval;
     this.savingInterval = savingInterval;
     this.onTrack = onTrack;
-    this.investmentAccountUID = UUID.fromString(investmentAccountUID);
-    this.userUID = UUID.fromString(userUID);
+    this.investmentAccountUID = investmentAccountUID;
+    this.userUID = userUID;
   }
 
   //
@@ -106,7 +107,7 @@ public class Goal {
    * @param newVar the new value of uid
    */
   public void setUid (String newVar) {
-    uid = UUID.fromString(newVar);
+    uid = newVar;
   }
 
   /**
@@ -266,7 +267,7 @@ public class Goal {
    * @param newVar the new value of investmentAccountUID
    */
   public void setInvestmentAccountUID (String newVar) {
-    investmentAccountUID = UUID.fromString(newVar);
+    investmentAccountUID = (newVar);
   }
 
   /**
@@ -282,7 +283,7 @@ public class Goal {
    * @param newVar the new value of userUID
    */
   public void setUserUID (String newVar) {
-    userUID = UUID.fromString(newVar);
+    userUID = (newVar);
   }
 
   /**

@@ -2,10 +2,8 @@ import {AppBar, makeStyles, Toolbar, Typography, Container, Button, Modal} from 
 import PrimaryButton from "./primaryButton";
 import SecundaryButton from "./secundaryButton";
 import Colors from "../constants/colors";
-import {useState} from "react";
-import {AuthCard, InitialFace} from "./auth-card";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     appBar: {
         color: 'white',
         backgroundColor: 'white',
@@ -22,28 +20,18 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica',
         fontStyle: 'underline',
         fontSize: 14,
-    }
-
-})
+    },
+    paper: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    }}))
 
 const NavBar = (props) => {
     const classes = useStyles();
-    const [modalIsOpen, setModelIsOpen] = useState(false)
-    const [modalFace, setModalFace] = useState(InitialFace.Login)
-
-    const handleOpen = () => {
-        setModelIsOpen(true)
-    }
-
-    const handleClose = () => {
-        setModelIsOpen(false)
-    }
-
-    const handleRegister = () => {
-        setModalFace(InitialFace.Register)
-        setModelIsOpen(true)
-    }
-
     return (
         <div>
         <AppBar className={classes.appBar} elevation={10}>
@@ -62,12 +50,12 @@ const NavBar = (props) => {
                     </Button>
                 </Container>
 
-                <PrimaryButton title="Login" padding={2} onClick={handleOpen}/>
-                <SecundaryButton title="Register" padding={2} onClick={handleRegister}/>
+                <PrimaryButton title="Login" padding={2} onClick={() => {}}/>
+                <SecundaryButton title="Register" padding={2} onClick={() => {}}/>
 
             </Toolbar>
         </AppBar>
-        <Modal open={modalIsOpen} onClose={handleClose} children={<AuthCard face={modalFace} /> }/>
+
         </div>
     )
 }

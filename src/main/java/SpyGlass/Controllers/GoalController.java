@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutionException;
  */
 @RestController
 @RequestMapping("/goals")
+@CrossOrigin
 public class GoalController {
 
   //
@@ -45,6 +46,7 @@ public class GoalController {
    */
   //  GET request that retrieves according goals list to specified user
   @GetMapping("/{userUID}")
+  @CrossOrigin
   public List<Goal> getGoals(@PathVariable String userUID) throws NoGoalsFoundException, ExecutionException, InterruptedException {
     return goalService.getGoals(userUID);
   }
@@ -56,9 +58,10 @@ public class GoalController {
    * @param        newGoal
    */
   //  Adds new goal to specified user's list of goals
-  @PostMapping("/{userUID}")
-  public Boolean addNewGoal(@PathVariable String userUID, @RequestBody Goal newGoal) throws GoalAlreadyExistsException, ExecutionException, InterruptedException {
-    return goalService.addNewGoal(userUID, newGoal);
+  @PostMapping()
+  @CrossOrigin
+  public Boolean addNewGoal( @RequestBody Goal newGoal) throws GoalAlreadyExistsException, ExecutionException, InterruptedException {
+    return goalService.addNewGoal(newGoal.getUserUID(), newGoal);
   }
 
 
@@ -69,6 +72,7 @@ public class GoalController {
    */
   //  Retrieves specified goal and updates specified goal's information
 @PutMapping("/{goalUID}")
+@CrossOrigin
   public Boolean updateGoal(@PathVariable String goalUID, @RequestBody Goal newGoal) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
     return goalService.updateGoal(goalUID, newGoal);
   }
@@ -80,6 +84,7 @@ public class GoalController {
    */
   //  Removes the specified goal from user's goal list
   @DeleteMapping("/{goalUID}")
+  @CrossOrigin
   public Boolean deleteGoal(@PathVariable String goalUID) throws GoalDoesNotExistException, ExecutionException, InterruptedException {
     return goalService.deleteGoal(goalUID);
   }

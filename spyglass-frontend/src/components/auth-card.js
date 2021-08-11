@@ -1,3 +1,4 @@
+import {Box} from "@material-ui/core";
 const {useState} = require("react");
 const ReactCardFlip = require("react-card-flip");
 const LoginCard = require("./login-card");
@@ -34,16 +35,16 @@ export const AuthCard = (props) => {
         }
     }
 
-    const flip = (event) => {
+    const flip = () => {
         setIsFlipped(!isFlipped)
     }
 
     return (
-        <div>
+        <Box width={600} height={700}>
         <ReactCardFlip isFlipped={isFlipped} flipDirection={'horizontal'}>
-            <LoginCard onLogin={handleLogin} onRegister={handleRegister} onCancel={() => {}}/>
-            <RegisterCard flip={flip} onCancel={() => {} }/>
+            <LoginCard onLogin={handleLogin} onRegister={flip} onCancel={() => {}}/>
+            <RegisterCard onRegister={() => {}} flip={flip} onCancel={() => {} }/>
         </ReactCardFlip>
-        </div>
+        </Box>
     )
 }

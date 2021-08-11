@@ -1,7 +1,8 @@
 import './App.css';
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import Colors from './constants/colors';
-import NavBar from './components/landing-navbar';
+import LandingPage from 'views/landing-page'
+
 
 const theme = createTheme({
   palette: {
@@ -10,12 +11,11 @@ const theme = createTheme({
     }
   }
 })
-
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme} >
-        <NavBar title="SpyGlass"/>
+        <LandingPage />
       </ThemeProvider>
     </div>
   );
