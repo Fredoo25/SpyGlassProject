@@ -42,6 +42,7 @@ public class InvestmentController {
    */
   //  POST request that adds investment via investmentService
   @PostMapping("/{userUID}")
+  @CrossOrigin
   public Boolean addInvestment(@PathVariable String userUID, @RequestBody InvestmentAccount newInvestment) throws InvestmentAccountAlreadyExists, ExecutionException, InterruptedException {
     return investmentService.addInvestment(newInvestment, userUID);
   }
@@ -53,6 +54,7 @@ public class InvestmentController {
    */
   //  GET request that retrieves all investments via investmentService
   @GetMapping("/{userUID}")
+  @CrossOrigin
   public List<InvestmentAccount> getInvestments(@PathVariable String userUID) throws ExecutionException, InterruptedException {
     return investmentService.getInvestmentAccounts(userUID);
   }
@@ -64,6 +66,7 @@ public class InvestmentController {
    */
   //  GET request that retrieves single specified investment via investmentService
   @GetMapping("/{investmentUID}")
+  @CrossOrigin
   public InvestmentAccount getInvestment(@PathVariable String investmentUID) throws InvestmentAccountDoesNotExists, ExecutionException, InterruptedException {
     return investmentService.getInvestment(investmentUID);
   }
