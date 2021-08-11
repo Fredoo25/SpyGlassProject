@@ -91,3 +91,5 @@ flutter:
 assets:
   - assets/
   - assets/images/default-goal-image.jpg
+  - images/default-goal-image.jpg
+  - images/landing-page.png

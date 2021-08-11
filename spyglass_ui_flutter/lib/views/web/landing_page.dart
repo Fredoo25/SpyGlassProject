@@ -7,16 +7,19 @@ class LandingPage extends StatelessWidget {
 
  
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50),
-          child: FloatingAppBar(context: context)),
-          body: Container() //TODO: Build landing Page Body UI. ,
-          
-      ),
+    return  Scaffold(
+          appBar: FloatingAppBar(context: context),
+          body: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                      image: AssetImage(
+                          'images/landing-page.png'
+                      )
+                  )
+              ),
+            ),
+   //TODO: Build landing Page Body UI. ,
     );
   }
 

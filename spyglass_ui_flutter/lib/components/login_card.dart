@@ -72,7 +72,7 @@ class LoginCard extends StatelessWidget {
                            textStyle: TextStyle(
                         color: customColors['primary']!,
                         fontSize: 48,
-                        fontWeight: FontWeight.w300,
+                        fontWeight: FontWeight.w700,
                       )
                          ),),
                     ),

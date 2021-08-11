@@ -87,14 +87,20 @@ Future<bool> delete(Serializable deleteObject) async {
   }
 }
 
+/// Function is used to retrieve a single resource from the backend
+/// using the resources unique uid.
 Future<T?> getSingle<T extends Serializable>(String resourceUID) async {
   List<T> parsedObjects = [];
+  //Get the type of data we are trying to get from backend
   Type type = getType<T>();
   logger.i("Attempting to get $type with UID: $resourceUID");
   try{
+    //make the call the backend to the endpoint for the provided data type
     var response = await http.get(Uri.parse(dbURI + _endPoints[type]!),
     headers: _headers);
+    //Check the status of the response
     if(response.statusCode == HttpStatus.ok) {
+      //Start parsing the response body
       List<dynamic> jsonObjects = await json.decode(response.body);
       jsonObjects.forEach((element) => parsedObjects.add(fromJson<T>(element)));
       if(parsedObjects.isEmpty) {

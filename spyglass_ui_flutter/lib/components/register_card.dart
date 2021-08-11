@@ -72,7 +72,7 @@ class RegisterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 700,
+        width: 500,
         child: Card(
             margin: const EdgeInsets.all(10),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -85,8 +85,8 @@ class RegisterCard extends StatelessWidget {
                     style: GoogleFonts.alexBrush(
                         textStyle: TextStyle(
                           color: customColors['primary']!,
-                          fontSize: 36,
-                          fontWeight: FontWeight.w300,
+                          fontSize: 42,
+                          fontWeight: FontWeight.w700,
                         )
                     ),
                   ),

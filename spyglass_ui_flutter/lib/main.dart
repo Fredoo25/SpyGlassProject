@@ -5,8 +5,8 @@ import 'package:spyglass_ui_flutter/constants/colors.dart';
 import 'package:spyglass_ui_flutter/controllers/controller.dart';
 import 'package:spyglass_ui_flutter/views/MainPage.dart';
 import 'package:spyglass_ui_flutter/views/contact-us.dart';
-import 'package:spyglass_ui_flutter/views/landing_page.dart';
 import 'package:spyglass_ui_flutter/views/view-manager.dart';
+import 'package:spyglass_ui_flutter/views/web/landing_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
