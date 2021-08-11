@@ -2,7 +2,8 @@ import { AppBar, makeStyles, Toolbar, Typography, Container, Button } from "@mat
 import PrimaryButton from "./primaryButton";
 import SecundaryButton from "./secundaryButton";
 import Colors from "../constants/colors";
-
+import ContactForm from "./ContactForm";
+import React from 'react';
 const useStyles = makeStyles({
     appBar: {
         color: 'white',
@@ -24,20 +25,22 @@ const useStyles = makeStyles({
 
 })
 
+
 const NavBar = (props) => {
     const classes = useStyles();
 
-    return (
+       return (
         <AppBar className={classes.appBar} elevation={10}>
             <Toolbar>
                 <Typography className={classes.title} variant='h2'  >{props.title}</Typography>
                 <Container>
                     <Button onClick={() => {}}>
+
                         <Typography className={classes.menu} variant='overline' >Product</Typography>
                     </Button>
                 </Container>
                 <Container>
-                    <Button onClick={() => {}}>
+                    <Button onClick = {() => {}}>
                         <Typography className={classes.menu} variant='overline' >Contact Us</Typography>
                     </Button>
                 </Container>
