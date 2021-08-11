@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'package:get/get.dart';
+import 'package:spyglass_ui_flutter/backend/storage.dart';
 import 'package:spyglass_ui_flutter/models/goal.dart';
 import 'package:spyglass_ui_flutter/models/investmentAccount.dart';
 import 'package:spyglass_ui_flutter/models/user.dart';
@@ -71,6 +72,7 @@ class UserController extends GetxController {
   void removeGoal(int goalIndex) async {
     Goal goalToRemove = _goals[goalIndex];
     await DB.delete(goalToRemove);
+    deleteRemoteImage(goalToRemove.imageURL);
     fetchDataFromBackEnd();
     this.update();
   }
@@ -84,7 +86,7 @@ class UserController extends GetxController {
   }
 
   Future<void> addNewUserToBackend() async {
-    DB.post(user!);
+    await DB.post(user!);
   }
 
   void updateGoal(Goal updatedGoal) async {

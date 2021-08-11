@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "44786386669",
+    "project_id": "spyglass-ui",
+    "storage_bucket": "spyglass-ui.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44786386669:android:c9d77ebedb7a5e3032aee4",
+        "android_client_info": {
+          "package_name": "com.spyglass.ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44786386669-2k28brnvl78dnc08patfb4r394r8a463.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqpaKsAuoTElHy0-gd53YeFAiHmPqeylg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44786386669-2k28brnvl78dnc08patfb4r394r8a463.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

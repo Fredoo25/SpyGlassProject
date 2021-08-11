@@ -1,18 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:spyglass_ui_flutter/constants/colors.dart';
 import 'package:spyglass_ui_flutter/controllers/controller.dart';
 import 'package:spyglass_ui_flutter/views/MainPage.dart';
 import 'package:spyglass_ui_flutter/views/contact-us.dart';
-import 'package:spyglass_ui_flutter/views/landing_page.dart';
+import 'package:spyglass_ui_flutter/views/view-manager.dart';
+import 'package:spyglass_ui_flutter/views/web/landing_page.dart';
 
-final _logger = Logger();
-
-void main() {
-  FlutterError.onError = (FlutterErrorDetails details) {
-    _logger.e(details.exceptionAsString());
-  };
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Get.put(UserController());
   runApp(MyApp());
 }
@@ -51,7 +49,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/'  : (builder) => LandingPage(),
+        '/'  : (builder) => ViewManager(),
         '/register': (builder) => LandingPage(),
         '/login': (builder) => LandingPage(),
         '/contact-us': (builder) => ContactUs(),

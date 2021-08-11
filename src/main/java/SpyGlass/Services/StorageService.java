@@ -50,6 +50,8 @@ public class StorageService {
             //Get the firestore db from the Firestore Connection.
             this.db = FirestoreClient.getFirestore();
             logger.info("Storage Service initialized successfully!");
+            //Close the InputStream to prevent memory leaks
+            serviceAccount.close();
         } catch (FileNotFoundException e) {
             //If the service account file could not be loaded, print error message, exit application)
             logger.error("Service Account File could not be found, terminating application!!!");

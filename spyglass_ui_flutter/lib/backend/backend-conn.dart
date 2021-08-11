@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 import 'package:spyglass_ui_flutter/constants/logger.dart';
@@ -12,7 +13,7 @@ import 'package:http/http.dart' as http;
 
 
 final _appController = Get.find<UserController>();
-final dbURI = "http://localhost:8080";
+final dbURI = kIsWeb? "http://localhost:8080" : "http://10.0.2.2:8080";
 final Map<Type, String> _endPoints = {
   User : '/users',
   Goal : '/goals',
@@ -86,15 +87,22 @@ Future<bool> delete(Serializable deleteObject) async {
   }
 }
 
+/// Function is used to retrieve a single resource from the backend
+/// using the resources unique uid.
 Future<T?> getSingle<T extends Serializable>(String resourceUID) async {
   List<T> parsedObjects = [];
+  //Get the type of data we are trying to get from backend
   Type type = getType<T>();
   logger.i("Attempting to get $type with UID: $resourceUID");
   try{
+    //make the call the backend to the endpoint for the provided data type
     var response = await http.get(Uri.parse(dbURI + _endPoints[type]!),
     headers: _headers);
+    //Check the status of the response
     if(response.statusCode == HttpStatus.ok) {
+      //Start parsing the response body
       List<dynamic> jsonObjects = await json.decode(response.body);
+      //Convert from json to Objects
       jsonObjects.forEach((element) => parsedObjects.add(fromJson<T>(element)));
       if(parsedObjects.isEmpty) {
         return null;
@@ -102,11 +110,13 @@ Future<T?> getSingle<T extends Serializable>(String resourceUID) async {
         return parsedObjects.first;
       }
     } else {
+      //Otherwise log the error from Server
       logger.e("Could not get resource $type."
       "\nServer Response Code: ${response.statusCode}. "
       "\nServer Response Body: ${response.body}");
     }
   } on Error catch(ex) {
+    //Log errors encountered when doing call or parsing.
     logger.e(ex.toString());
     return null;
   }

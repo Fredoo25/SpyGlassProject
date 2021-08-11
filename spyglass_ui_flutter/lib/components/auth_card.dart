@@ -15,16 +15,16 @@ class AuthCard extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        width: 500,
-        height: 600,
-        child: FlipCard(
-          controller: controller,
-          front: initialFace == Face.Login? LoginCard(controller) : RegisterCard(controller),
-          back: initialFace == Face.Login? RegisterCard(controller) : LoginCard(controller),
-          flipOnTouch: false,
-        ),
-      ),
+        child: Container(
+          width: 600,
+          height: 800,
+          child: FlipCard(
+                controller: controller,
+                front: initialFace == Face.Login? LoginCard(controller) : RegisterCard(controller),
+                back: initialFace == Face.Login? RegisterCard(controller) : LoginCard(controller),
+                flipOnTouch: false,
+              ),
+            ),
     );
   }
 }
